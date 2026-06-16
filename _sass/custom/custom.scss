@@ -1,0 +1,37 @@
+$sidebar-w: 250px;
+$content-w: 1000px;
+$accent:    #e0b341;
+
+.side-bar {
+  @include mq(lg) {
+    width: $sidebar-w;
+    min-width: $sidebar-w;
+    align-items: stretch;
+  }
+}
+
+.side-bar + .main {
+  @include mq(lg) {
+    margin-left: $sidebar-w;
+  }
+}
+
+.main {
+  @include mq(lg) {
+    max-width: $content-w;
+  }
+}
+
+a { color: $accent; }
+
+.nav-list .nav-list-item .nav-list-link.active,
+.nav-list .nav-list-item .nav-list-link:hover {
+  color: $accent;
+}
+
+.nav-list .nav-list-item .nav-list-link.active { font-weight: 600; }
+
+.site-title { font-weight: 700; letter-spacing: -0.01em; }
+
+.main-content h1,
+.main-content h2 { margin-top: 1.6em; }

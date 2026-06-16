@@ -5,7 +5,7 @@ description: Ideas on philosophy, tech, and whatever else is on my mind.
 # USERNAME.github.io, leave baseurl blank. For a project repo
 # (e.g. github.com/USERNAME/blog), set baseurl: "/blog".
 baseurl: "/blog"
-url: "https://USERNAME.github.io"
+url: "https://kevin-aoun.github.io"
 
 # ─── Theme ────────────────────────────────────────────────────
 # remote_theme pulls just-the-docs at build time — nothing to vendor.
@@ -23,7 +23,7 @@ back_to_top_text: "Back to top"
 # Links shown top-right of every page
 aux_links:
   "GitHub":
-    - "https://github.com/USERNAME"
+    - "https://github.com/kevin-aoun"
 
 # Footer line
 footer_content: "© 2026 Kevin. Built with Jekyll + just-the-docs."
