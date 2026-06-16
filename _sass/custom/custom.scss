@@ -1,4 +1,4 @@
-$sidebar-w: 250px;
+$sidebar-w: 300px;
 $content-w: 1000px;
 $accent:    #e0b341;
 
@@ -22,7 +22,7 @@ $accent:    #e0b341;
   }
 }
 
-.main-content a { color: $accent; }
+a { color: $accent; }
 
 .nav-list .nav-list-item .nav-list-link.active,
 .nav-list .nav-list-item .nav-list-link:hover {
