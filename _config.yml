@@ -1,0 +1,36 @@
+# ─── Site basics ──────────────────────────────────────────────
+title: Kevin's Notes
+description: Ideas on philosophy, tech, and whatever else is on my mind.
+# Set this once you know your repo URL. If your repo is named
+# USERNAME.github.io, leave baseurl blank. For a project repo
+# (e.g. github.com/USERNAME/blog), set baseurl: "/blog".
+baseurl: ""
+url: "https://USERNAME.github.io"
+
+# ─── Theme ────────────────────────────────────────────────────
+# remote_theme pulls just-the-docs at build time — nothing to vendor.
+remote_theme: just-the-docs/just-the-docs
+plugins:
+  - jekyll-remote-theme
+
+# ─── just-the-docs options ────────────────────────────────────
+color_scheme: dark          # "light" or "dark"
+search_enabled: true        # full-text search box in the sidebar
+heading_anchors: true       # hover-link icons on headings
+back_to_top: true
+back_to_top_text: "Back to top"
+
+# Links shown top-right of every page
+aux_links:
+  "GitHub":
+    - "https://github.com/USERNAME"
+
+# Footer line
+footer_content: "© 2026 Kevin. Built with Jekyll + just-the-docs."
+
+# Don't let Jekyll try to build these
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
