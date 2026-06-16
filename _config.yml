@@ -4,7 +4,7 @@ description: Ideas on philosophy, tech, and whatever else is on my mind.
 # Set this once you know your repo URL. If your repo is named
 # USERNAME.github.io, leave baseurl blank. For a project repo
 # (e.g. github.com/USERNAME/blog), set baseurl: "/blog".
-baseurl: ""
+baseurl: "/blog"
 url: "https://USERNAME.github.io"
 
 # ─── Theme ────────────────────────────────────────────────────
