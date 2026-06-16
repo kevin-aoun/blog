@@ -22,7 +22,7 @@ $accent:    #e0b341;
   }
 }
 
-a { color: $accent; }
+.main-content a { color: $accent; }
 
 .nav-list .nav-list-item .nav-list-link.active,
 .nav-list .nav-list-item .nav-list-link:hover {
