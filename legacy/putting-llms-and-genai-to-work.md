@@ -1,5 +1,6 @@
 ---
 title: "Putting LLMs and GenAI to Work"
+layout: note
 parent: Tech
 nav_order: 1
 date: 2024-02-16

@@ -71,6 +71,16 @@ a { color: $accent; }
 .main-content h1,
 .main-content h2 { margin-top: 1.6em; }
 
+.note-date {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: $ctp-text;
+  opacity: 0.6;
+  margin-bottom: 1.2em;
+}
+
 // ── Content typography ported from Obsidian ──
 .main-content {
   h1, h2, h3, h4, h5, h6 { color: $h-color; }
