@@ -71,14 +71,27 @@ a { color: $accent; }
 .main-content h1,
 .main-content h2 { margin-top: 1.6em; }
 
-.note-date {
+.note-header {
+  margin-bottom: 2em;
+
+  .note-title { margin-top: 0; }
+}
+
+.note-description {
+  font-size: 1.1em;
+  font-style: italic;
+  opacity: 0.85;
+  margin: 0.3em 0 0;
+}
+
+.note-meta {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.8em;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: $ctp-text;
   opacity: 0.6;
-  margin-bottom: 1.2em;
+  margin: 0.5em 0 0;
 }
 
 // ── Content typography ported from Obsidian ──

@@ -4,9 +4,9 @@ layout: note
 parent: Tech
 nav_order: 1
 date: 2024-02-16
+author: Kevin Aoun
+description: "A personal journey into the GenAI startup world, and five lessons from shipping with LLMs."
 ---
-
-# Putting LLMs and GenAI to Work: A Personal Journey
 
 ***In this blog post, I will share with you my journey venturing into the Generative AI startup world. By the end of the article, I will have shared 5 key lessons that you can leverage to stand out of the crowd in the AI market.***
 

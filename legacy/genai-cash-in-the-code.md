@@ -4,9 +4,9 @@ layout: note
 parent: Tech
 nav_order: 2
 date: 2024-02-23
+author: Kevin Aoun
+description: "Key insights into LangChain and LlamaIndex for standing out in the AI market."
 ---
-
-# GenAI: Cash in the Code
 
 ***In this blog post, I will share key insights into LangChain and LlamaIndex that you can leverage to stand out of the crowd in the AI market.***
 
