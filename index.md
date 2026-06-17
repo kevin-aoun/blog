@@ -20,6 +20,7 @@ No notes yet.
     <time>{{ note.date | date: "%Y-%m-%d" }}</time> &mdash;
     <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
     {% if note.parent %}<span class="timeline-section">{{ note.parent }}</span>{% endif %}
+    {% if note.description %}<em class="timeline-desc">{{ note.description }}</em>{% endif %}
   </li>
 {% endfor %}
 </ul>

@@ -9,6 +9,13 @@ plugins:
 
 color_scheme: dark
 search_enabled: true
+
+# Show line numbers on all fenced code blocks
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
 heading_anchors: true
 back_to_top: true
 back_to_top_text: "Back to top"

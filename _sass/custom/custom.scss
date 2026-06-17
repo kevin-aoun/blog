@@ -141,4 +141,26 @@ code, kbd, pre, pre code {
     letter-spacing: 0.04em;
     opacity: 0.6;
   }
+
+  .timeline-desc {
+    display: block;
+    margin-left: 6.5em; // align under the title, past the date column
+    font-style: italic;
+    font-size: 0.9em;
+    color: $ctp-text;
+    opacity: 0.65;
+  }
+}
+
+// Code-block line numbers (Rouge gutter)
+.main-content {
+  .highlight .table-wrapper { box-shadow: none; }
+
+  td.rouge-gutter,
+  .lineno {
+    color: $ctp-text;
+    opacity: 0.35;
+    user-select: none;
+    -webkit-user-select: none;
+  }
 }
