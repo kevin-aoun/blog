@@ -2,7 +2,7 @@
 layout: default
 ---
 <header class="note-header">
-  <h1 class="note-title">{{ page.title }}</h1>
+  <h1 class="note-title">{{ page.title }}{% if page.legacy %} <span class="legacy-tag">Legacy</span>{% endif %}</h1>
   {% if page.description %}<p class="note-description">{{ page.description }}</p>{% endif %}
   {% if page.date or page.author %}
   <p class="note-meta">

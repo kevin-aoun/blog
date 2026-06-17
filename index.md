@@ -19,6 +19,7 @@ No notes yet.
   <li>
     <time>{{ note.date | date: "%Y-%m-%d" }}</time> &mdash;
     <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
+    {% if note.legacy %}<span class="legacy-tag">Legacy</span>{% endif %}
     {% if note.parent %}<span class="timeline-section">{{ note.parent }}</span>{% endif %}
     {% if note.description %}<em class="timeline-desc">{{ note.description }}</em>{% endif %}
   </li>
