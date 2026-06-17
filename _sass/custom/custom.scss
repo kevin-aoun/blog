@@ -2,6 +2,13 @@ $sidebar-w: 300px;
 $content-w: 1000px;
 $accent:    #e0b341;
 
+// Palette ported from my Obsidian AnuPpuccin overlay (dark)
+$h-color:     #d63865; // headings
+$bold-color:  #f0de66; // strong
+$em-color:    #65dbff; // emphasis
+$quote-color: #86ffb2; // blockquotes
+$code-color:  #e879f9; // inline code
+
 .side-bar {
   @include mq(lg) {
     width: $sidebar-w;
@@ -35,6 +42,35 @@ a { color: $accent; }
 
 .main-content h1,
 .main-content h2 { margin-top: 1.6em; }
+
+// ── Content typography ported from Obsidian ──
+.main-content {
+  h1, h2, h3, h4, h5, h6 { color: $h-color; }
+  h1 {
+    font-family: "Lobster", cursive;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  strong, b { color: $bold-color; }
+  em, i { color: $em-color; }
+
+  blockquote {
+    color: $quote-color;
+    border-left: 3px solid rgba($quote-color, 0.5);
+  }
+
+  code:not(pre code) {
+    color: $code-color;
+    font-weight: 600;
+  }
+}
+
+code, kbd, pre, pre code {
+  font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+.site-title { font-family: "Lobster", cursive; }
 
 .timeline {
   list-style: none;
