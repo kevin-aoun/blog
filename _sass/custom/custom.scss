@@ -9,6 +9,34 @@ $em-color:    #65dbff; // emphasis
 $quote-color: #86ffb2; // blockquotes
 $code-color:  #e879f9; // inline code
 
+// AnuPpuccin dark = Catppuccin Mocha
+$ctp-base:     #1e1e2e; // main background
+$ctp-mantle:   #181825; // sidebar
+$ctp-crust:    #11111b; // darkest
+$ctp-surface0: #313244; // borders / code background
+$ctp-text:     #cdd6f4; // body text
+
+body,
+.main,
+.main-content-wrap {
+  background-color: $ctp-base;
+  color: $ctp-text;
+}
+
+.side-bar,
+.site-header,
+.site-footer {
+  background-color: $ctp-mantle;
+}
+
+.main-content {
+  pre, code, .highlight {
+    background-color: $ctp-crust;
+  }
+}
+
+.search-input { background-color: $ctp-mantle; }
+
 .side-bar {
   @include mq(lg) {
     width: $sidebar-w;
@@ -47,9 +75,9 @@ a { color: $accent; }
 .main-content {
   h1, h2, h3, h4, h5, h6 { color: $h-color; }
   h1 {
-    font-family: "Lobster", cursive;
-    font-weight: 400;
-    letter-spacing: 0.01em;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
   strong, b { color: $bold-color; }
@@ -70,7 +98,7 @@ code, kbd, pre, pre code {
   font-family: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
 }
 
-.site-title { font-family: "Lobster", cursive; }
+.site-title { font-family: "JetBrains Mono", monospace; }
 
 .timeline {
   list-style: none;
