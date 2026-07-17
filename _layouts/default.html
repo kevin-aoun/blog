@@ -117,5 +117,111 @@
       });
     })();
   </script>
+
+  <script>
+    // Copy-to-clipboard button on code blocks. Reads td.rouge-code (never the
+    // line-number gutter); falls back to the block's <pre>. Uses the Clipboard
+    // API where available, with an execCommand fallback for non-secure contexts.
+    (function () {
+      function copyText(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text);
+        }
+        return new Promise(function (resolve, reject) {
+          try {
+            var ta = document.createElement('textarea');
+            ta.value = text;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.top = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            var ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+            ok ? resolve() : reject();
+          } catch (e) { reject(e); }
+        });
+      }
+      var COPY = '<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>';
+      var CHECK = '<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+      var blocks = document.querySelectorAll('main .highlighter-rouge');
+      Array.prototype.forEach.call(blocks, function (block) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'copy-btn';
+        btn.setAttribute('aria-label', 'Copy code');
+        btn.innerHTML = COPY + '<span class="copy-label">Copy</span>';
+        block.appendChild(btn);
+        var timer;
+        btn.addEventListener('click', function () {
+          var codeEl = block.querySelector('td.rouge-code') || block.querySelector('pre');
+          if (!codeEl) return;
+          var text = codeEl.textContent.replace(/\n$/, '');
+          copyText(text).then(function () {
+            btn.classList.add('copied');
+            btn.innerHTML = CHECK + '<span class="copy-label">Copied</span>';
+            btn.setAttribute('aria-label', 'Copied');
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+              btn.classList.remove('copied');
+              btn.innerHTML = COPY + '<span class="copy-label">Copy</span>';
+              btn.setAttribute('aria-label', 'Copy code');
+            }, 1500);
+          }).catch(function () {});
+        });
+      });
+    })();
+  </script>
+
+  <script>
+    // Obsidian-style callouts: "> [!type] Title" blockquotes become boxed
+    // callouts with a Lucide icon. Untagged blockquotes are left untouched.
+    (function () {
+      var main = document.querySelector('main');
+      if (!main) return;
+      var ICONS = {
+        note: '<path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+        info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+        tip: '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+        warning: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+        danger: '<polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/>',
+        success: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+        question: '<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>',
+        quote: '<path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>',
+        heart: '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+        def: '<path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>',
+        target: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+        ship: '<path d="M22 18H2a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4Z"/><path d="M21 14 10 2 3 14h18Z"/><path d="M10 2v16"/>',
+        confetti: '<path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L12 12"/><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H14"/><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"/>'
+      };
+      var ALIAS = { hint: 'tip', important: 'tip', caution: 'warning', error: 'danger', bug: 'danger', check: 'success', done: 'success', help: 'question' };
+      function icon(type) {
+        var p = ICONS[ALIAS[type] || type] || ICONS.info;
+        return '<svg class="callout-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
+      }
+      var quotes = main.querySelectorAll('blockquote');
+      Array.prototype.forEach.call(quotes, function (bq) {
+        var first = bq.firstElementChild;
+        if (!first || first.tagName !== 'P') return;
+        var html = first.innerHTML;
+        var sepMatch = html.match(/<br\s*\/?>|\n/i);
+        var firstLine = sepMatch ? html.slice(0, sepMatch.index) : html;
+        var rest = sepMatch ? html.slice(sepMatch.index + sepMatch[0].length) : '';
+        var m = firstLine.match(/^\s*\[!([\w-]+)\]([+-]?)\s*([\s\S]*)$/);
+        if (!m) return;
+        var type = m[1].toLowerCase();
+        var titleHtml = (m[3] || '').trim();
+        bq.classList.add('callout');
+        bq.setAttribute('data-callout', type);
+        if (rest.replace(/<br\s*\/?>|\s|&nbsp;/gi, '') === '') { first.parentNode.removeChild(first); }
+        else { first.innerHTML = rest; }
+        var title = titleHtml || (type.charAt(0).toUpperCase() + type.slice(1));
+        var header = document.createElement('div');
+        header.className = 'callout-title';
+        header.innerHTML = icon(type) + '<span class="callout-title-text">' + title + '</span>';
+        bq.insertBefore(header, bq.firstChild);
+      });
+    })();
+  </script>
 </body>
 </html>

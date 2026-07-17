@@ -10,7 +10,14 @@ legacy: true
 
 ***In this blog post, I will share with you my journey venturing into the Generative AI startup world. By the end of the article, I will have shared 5 key lessons that you can leverage to stand out of the crowd in the AI market.***
 
-*Disclaimer: The technologies and companies mentioned in this article are for informational purposes only and do not constitute endorsement or sponsorship. Please perform your own research.*
+> [!note] Disclaimer
+> The technologies and companies mentioned in this article are for informational purposes only and do not constitute endorsement or sponsorship. Please perform your own research.
+
+## Contents
+{: .no_toc .post-toc-title }
+
+* TOC
+{:toc}
 
 ## Introduction
 
@@ -41,7 +48,8 @@ The best advice that I can give you is: build something industry-specific that s
 - Bring people closer to happiness;
 - Move people away from inconveniences.
 
-Forget the MVP. Instead, build an MLP (Minimum Lovable Product, as my team mentor always said) around that pain point, but remember, your final validation lies with the clients.
+> [!target] Build an MLP, not an MVP
+> Forget the MVP. Build an MLP (Minimum Lovable Product, as my team mentor always said) around that pain point — but remember, your final validation lies with the clients.
 
 Get their hands on it, listen to their feedback, and iterate rapidly. Remember, a product loved by its creators but ignored by its users is perfect for gathering dust on the shelf.
 

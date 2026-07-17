@@ -300,34 +300,195 @@ code {
   border-radius: 6px;
 }
 
-pre {
+/* Fenced blocks: the box lives on the wrapper so line-number tables read as
+   one block, and the top strip holds the language label (left) + copy button
+   (right) without ever overlapping the code. */
+.highlighter-rouge {
+  position: relative;
+  margin: 1.5rem 0;
+  padding-top: 2.4rem;
   background: var(--elevated);
   border: 1px solid var(--border);
-  padding: 1rem 1.1rem;
   border-radius: var(--radius);
-  overflow-x: auto;
   font-size: 0.82rem;
   line-height: 1.6;
-  margin: 1.5rem 0;
 }
 
-pre code {
-  background: none;
-  border: 0;
-  padding: 0;
-  font-size: inherit;
-}
-
-/* Rouge line-number gutter (line_numbers: true) */
-.highlight table, .highlight tr, .highlight td { border: 0; padding: 0; background: none; }
+.highlight { overflow-x: auto; border-top: 1px solid var(--border); }
+.highlight pre { margin: 0; background: none; border: 0; }
+.highlight > pre,
+.highlight .rouge-code pre { padding: 1rem 1.1rem; }
+.highlight .rouge-gutter pre { padding: 1rem 0 1rem 1.1rem; }
+.highlight table { width: 100%; border-collapse: collapse; margin: 0; }
+.highlight td { padding: 0; border: 0; vertical-align: top; }
 .highlight .rouge-gutter, .highlight .lineno {
   color: var(--faint);
+  text-align: right;
   padding-right: 1rem;
   user-select: none;
   -webkit-user-select: none;
 }
+pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+
 /* Keep highlighting quiet: only dim comments, everything else = code color. */
 .highlight .c, .highlight .c1, .highlight .cm, .highlight .cs { color: var(--faint); font-style: italic; }
+
+/* Language label (CSS-only, no JS — add a line per language you actually use) */
+.highlighter-rouge::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  height: 2.4rem;
+  padding-left: 1.1rem;
+  font-family: "Geist Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--faint);
+  pointer-events: none;
+}
+.highlighter-rouge.language-python::before      { content: "python"; }
+.highlighter-rouge.language-bash::before,
+.highlighter-rouge.language-shell::before,
+.highlighter-rouge.language-sh::before          { content: "bash"; }
+.highlighter-rouge.language-javascript::before,
+.highlighter-rouge.language-js::before          { content: "javascript"; }
+.highlighter-rouge.language-typescript::before,
+.highlighter-rouge.language-ts::before          { content: "typescript"; }
+.highlighter-rouge.language-json::before         { content: "json"; }
+.highlighter-rouge.language-yaml::before,
+.highlighter-rouge.language-yml::before          { content: "yaml"; }
+.highlighter-rouge.language-html::before         { content: "html"; }
+.highlighter-rouge.language-css::before          { content: "css"; }
+.highlighter-rouge.language-scss::before         { content: "scss"; }
+.highlighter-rouge.language-markdown::before     { content: "markdown"; }
+
+/* Copy button (added by JS; echoes .icon-btn) */
+.copy-btn {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  height: 28px;
+  padding: 0 0.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--muted);
+  font-family: "Geist Mono", monospace;
+  font-size: 0.72rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.copy-btn:hover,
+.copy-btn:focus-visible {
+  color: var(--heading);
+  background: var(--hover);
+  border-color: var(--border);
+}
+.copy-btn .icon { width: 14px; height: 14px; }
+.copy-btn.copied {
+  color: #2ecc71;
+  background: color-mix(in srgb, #2ecc71 12%, transparent);
+  border-color: color-mix(in srgb, #2ecc71 40%, transparent);
+}
+
+/* ── Callouts ─────────────────────────────────────────────── */
+/* Author with Obsidian syntax:  > [!note] Optional title
+                                  > body text
+   A script tags the blockquote with .callout + data-callout="<type>" and a
+   Lucide icon. Untagged blockquotes keep the plain blockquote styling above.
+   Per-type accent is one token: --callout-color (border + icon + faint tint). */
+.callout {
+  --callout-color: var(--muted);
+  margin: 1.5rem 0;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--callout-color) 45%, transparent);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--callout-color) 7%, var(--elevated));
+  color: var(--foreground);
+  font-style: normal;              /* override the plain blockquote italic */
+}
+.callout > :first-child { margin-top: 0; }
+.callout > :last-child { margin-bottom: 0; }
+.callout p { font-style: normal; color: var(--foreground); }
+
+.callout-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+  color: var(--callout-color);
+  font-weight: 600;
+}
+.callout-title .callout-icon {
+  flex: none;
+  width: 1.15em;
+  height: 1.15em;
+}
+
+/* Standard types (token-derived so both themes hold up) */
+.callout[data-callout="note"]      { --callout-color: var(--muted); }
+.callout[data-callout="info"]      { --callout-color: #3498db; }
+.callout[data-callout="tip"],
+.callout[data-callout="hint"],
+.callout[data-callout="important"] { --callout-color: #12b5a8; }
+.callout[data-callout="warning"],
+.callout[data-callout="caution"]   { --callout-color: var(--accent); }
+.callout[data-callout="danger"],
+.callout[data-callout="error"],
+.callout[data-callout="bug"]       { --callout-color: #e5484d; }
+.callout[data-callout="success"],
+.callout[data-callout="check"],
+.callout[data-callout="done"]      { --callout-color: #2ecc71; }
+.callout[data-callout="question"],
+.callout[data-callout="help"],
+.callout[data-callout="quote"]     { --callout-color: var(--border-hover); }
+
+/* Custom types */
+.callout[data-callout="heart"]     { --callout-color: #ff8ff7; }
+.callout[data-callout="def"]       { --callout-color: #2ecc71; }
+.callout[data-callout="target"]    { --callout-color: #3498db; }
+.callout[data-callout="ship"]      { --callout-color: #f1c40f; }
+.callout[data-callout="confetti"]  { --callout-color: #b266ff; }
+
+/* ── Table of contents ────────────────────────────────────── */
+/* Opt-in per post — Kramdown replaces the list with <ul id="markdown-toc">:
+     ## Contents
+     {: .no_toc .post-toc-title }
+
+     * TOC
+     {:toc}                                                             */
+.post-toc-title {
+  margin: 2rem 0 0.6rem;
+  padding: 0;
+  border: 0;                        /* drop the default h2 underline */
+  color: var(--muted);
+  font-family: "Geist Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+#markdown-toc {
+  margin: 0 0 2rem;
+  padding: 0.9rem 1.2rem 0.9rem 2.1rem;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+}
+#markdown-toc ul { margin: 0.2rem 0 0; padding-left: 1.1rem; }
+#markdown-toc li { margin: 0.2rem 0; }
+#markdown-toc li::marker { color: var(--faint); }
+#markdown-toc a { color: var(--muted); text-decoration: none; }
+#markdown-toc a:hover { color: var(--heading); text-decoration: underline; }
 
 /* ── Tables ───────────────────────────────────────────────── */
 table {

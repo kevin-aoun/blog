@@ -10,6 +10,12 @@ legacy: true
 
 ***In this blog post, I will share key insights into LangChain and LlamaIndex that you can leverage to stand out of the crowd in the AI market.***
 
+## Contents
+{: .no_toc .post-toc-title }
+
+* TOC
+{:toc}
+
 ## Introduction
 
 According to a recent report by McKinsey & Company, generative AI could add the equivalent of $2.6 trillion to $4.4 trillion annually—by comparison, the United Kingdom's entire GDP in 2021 was $3.1 trillion.
@@ -78,7 +84,10 @@ This comes very handy in techniques such as Retrieval Augmented Generation.
 
 In a nutshell, RAG is a technique where user queries are converted to machine-readable numbers, matched to text embeddings in vector databases (e.g., Chroma, FAISS, Qdrant), and relevant context is retrieved for LLM prompts.
 
-Thus, having a clean data pipeline is paramount, since the answer of the LLM heavily depends on the context window that you provide. Always remember, no matter how good your model is: garbage in equals garbage out.
+Thus, having a clean data pipeline is paramount, since the answer of the LLM heavily depends on the context window that you provide.
+
+> [!warning] Garbage in, garbage out
+> No matter how good your model is, its answer only ever reflects the quality of the context you feed it. Invest in the pipeline before the prompt.
 
 Let's evaluate a simple example in practice using LlamaIndex:
 
@@ -114,4 +123,5 @@ LangChain proves efficient in LLM orchestration and excels in crafting custom ag
 
 Recognizing the synergy between the two — LangChain for efficient orchestration and LlamaIndex for efficient data querying — their combined capabilities promise a robust and tailored application ready to face the competitive AI market.
 
-*Disclaimer: The technologies and companies mentioned in this article are for informational purposes only and do not constitute endorsement or sponsorship. Please perform your own research.*
+> [!note] Disclaimer
+> The technologies and companies mentioned in this article are for informational purposes only and do not constitute endorsement or sponsorship. Please perform your own research.
