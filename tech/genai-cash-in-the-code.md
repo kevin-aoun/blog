@@ -2,7 +2,6 @@
 title: "GenAI: Cash in the Code"
 layout: note
 parent: Tech
-nav_order: 2
 date: 2024-02-23
 author: Kevin Aoun
 description: "Key insights into LangChain and LlamaIndex for standing out in the AI market."

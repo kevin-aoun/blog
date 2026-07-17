@@ -1,27 +1,21 @@
 ---
 title: Home
-layout: home
-nav_order: 1
 ---
 
 # Kevin's Notes
 
-Welcome. This is a place to park ideas before they evaporate.
-
-## Timeline
+A place to park ideas before they evaporate — philosophy, tech, and whatever else is on my mind.
 
 {% assign notes = site.pages | where_exp: "p", "p.date" | sort: "date" | reverse %}
 {% if notes == empty %}
 No notes yet.
 {% else %}
-<ul class="timeline">
+<ul class="post-list">
 {% for note in notes %}
   <li>
-    <time>{{ note.date | date: "%Y-%m-%d" }}</time> &mdash;
-    <a href="{{ note.url | relative_url }}">{{ note.title }}</a>
-    {% if note.legacy %}<span class="legacy-tag">Legacy</span>{% endif %}
-    {% if note.parent %}<span class="timeline-section">{{ note.parent }}</span>{% endif %}
-    {% if note.description %}<em class="timeline-desc">{{ note.description }}</em>{% endif %}
+    <a class="post-link" href="{{ note.url | relative_url }}">{{ note.title }}</a>{% if note.legacy %}<span class="legacy-tag">Legacy</span>{% endif %}
+    <div class="post-meta"><time datetime="{{ note.date | date_to_xmlschema }}">{{ note.date | date: "%b %-d, %Y" }}</time>{% if note.parent %} · {{ note.parent }}{% endif %}</div>
+    {% if note.description %}<p class="post-desc">{{ note.description }}</p>{% endif %}
   </li>
 {% endfor %}
 </ul>

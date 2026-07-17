@@ -3,31 +3,50 @@ description: Ideas on philosophy, tech, and whatever else is on my mind.
 baseurl: "/blog"
 url: "https://kevin-aoun.github.io"
 
-remote_theme: just-the-docs/just-the-docs
-plugins:
-  - jekyll-remote-theme
+# Minimal, self-contained setup — no remote theme.
+# Layouts live in _layouts/, styles in assets/css/style.scss.
 
-color_scheme: dark
-search_enabled: true
+# Sidebar navigation. Items with a `section` auto-list their child notes
+# (any page whose front matter has `parent: <section>`).
+nav:
+  - title: Home
+    url: /
+  - title: Philosophy
+    url: /philosophy/
+    section: Philosophy
+  - title: Tech
+    url: /tech/
+    section: Tech
+  - title: About
+    url: /about/
 
-# Show line numbers on all fenced code blocks
+# Footer links (rendered with a Lucide ↗ icon, in order).
+social:
+  - name: linkedin
+    url: "https://www.linkedin.com/in/kevin-aoun"
+  - name: github
+    url: "https://github.com/kevin-aoun"
+
+# Markdown / syntax highlighting.
 kramdown:
   syntax_highlighter: rouge
   syntax_highlighter_opts:
     block:
       line_numbers: true
-heading_anchors: true
-back_to_top: true
-back_to_top_text: "Back to top"
 
-aux_links:
-  "GitHub":
-    - "https://github.com/kevin-aoun"
-
-footer_content: "© 2026 Kevin. Built with Jekyll + just-the-docs."
+# Give every page the default layout unless it sets its own.
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
 
 exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
   - vendor
+  - node_modules
+  - package.json
+  - package-lock.json
+  - preview.html
