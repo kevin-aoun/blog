@@ -302,8 +302,9 @@ code {
 
 /* Fenced blocks: the box lives on the wrapper so line-number tables read as
    one block, and the top strip holds the language label (left) + copy button
-   (right) without ever overlapping the code. */
-.highlighter-rouge {
+   (right) without ever overlapping the code. Scoped to div. so inline code
+   (which Kramdown also tags .highlighter-rouge) keeps the plain pill above. */
+div.highlighter-rouge {
   position: relative;
   margin: 1.5rem 0;
   padding-top: 2.4rem;
@@ -334,7 +335,7 @@ pre code { background: none; border: 0; padding: 0; font-size: inherit; }
 .highlight .c, .highlight .c1, .highlight .cm, .highlight .cs { color: var(--faint); font-style: italic; }
 
 /* Language label (CSS-only, no JS — add a line per language you actually use) */
-.highlighter-rouge::before {
+div.highlighter-rouge::before {
   content: "";
   position: absolute;
   top: 0;
@@ -350,21 +351,21 @@ pre code { background: none; border: 0; padding: 0; font-size: inherit; }
   color: var(--faint);
   pointer-events: none;
 }
-.highlighter-rouge.language-python::before      { content: "python"; }
-.highlighter-rouge.language-bash::before,
-.highlighter-rouge.language-shell::before,
-.highlighter-rouge.language-sh::before          { content: "bash"; }
-.highlighter-rouge.language-javascript::before,
-.highlighter-rouge.language-js::before          { content: "javascript"; }
-.highlighter-rouge.language-typescript::before,
-.highlighter-rouge.language-ts::before          { content: "typescript"; }
-.highlighter-rouge.language-json::before         { content: "json"; }
-.highlighter-rouge.language-yaml::before,
-.highlighter-rouge.language-yml::before          { content: "yaml"; }
-.highlighter-rouge.language-html::before         { content: "html"; }
-.highlighter-rouge.language-css::before          { content: "css"; }
-.highlighter-rouge.language-scss::before         { content: "scss"; }
-.highlighter-rouge.language-markdown::before     { content: "markdown"; }
+div.highlighter-rouge.language-python::before      { content: "python"; }
+div.highlighter-rouge.language-bash::before,
+div.highlighter-rouge.language-shell::before,
+div.highlighter-rouge.language-sh::before          { content: "bash"; }
+div.highlighter-rouge.language-javascript::before,
+div.highlighter-rouge.language-js::before          { content: "javascript"; }
+div.highlighter-rouge.language-typescript::before,
+div.highlighter-rouge.language-ts::before          { content: "typescript"; }
+div.highlighter-rouge.language-json::before         { content: "json"; }
+div.highlighter-rouge.language-yaml::before,
+div.highlighter-rouge.language-yml::before          { content: "yaml"; }
+div.highlighter-rouge.language-html::before         { content: "html"; }
+div.highlighter-rouge.language-css::before          { content: "css"; }
+div.highlighter-rouge.language-scss::before         { content: "scss"; }
+div.highlighter-rouge.language-markdown::before     { content: "markdown"; }
 
 /* Copy button (added by JS; echoes .icon-btn) */
 .copy-btn {

@@ -22,8 +22,10 @@ nav:
 
 # Footer links (rendered with a Lucide ↗ icon, in order).
 social:
+  - name: twitter
+    url: "https://x.com/kevin_aoun1"
   - name: linkedin
-    url: "https://www.linkedin.com/in/kevin-aoun"
+    url: "https://www.linkedin.com/in/kevin-w-aoun/"
   - name: github
     url: "https://github.com/kevin-aoun"
 
