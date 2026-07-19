@@ -18,10 +18,11 @@
   --border:       #171a22;
   --border-hover: #232732;
 
-  --accent:       #d9401a;   /* orange accent (tags, title dot, selection) */
+  --accent:       #b3122f;   /* carmine accent (tags, title dot, selection) */
+  --accent-hover: #6e0a1e;
 
   --header-bg:    rgba(2, 4, 10, 0.72);
-  --selection:    rgba(217, 64, 26, 0.28);
+  --selection:    rgba(179, 18, 47, 0.28);
 
   --radius:       0.5rem;
   --content-w:    720px;
@@ -50,10 +51,11 @@
     --border:       #e6dfce;
     --border-hover: #d5cbb5;
 
-    --accent:       #af3a03;
+    --accent:       #b3122f;
+    --accent-hover: #6e0a1e;
 
     --header-bg:    rgba(255, 255, 255, 0.8);
-    --selection:    rgba(175, 58, 3, 0.16);
+    --selection:    rgba(179, 18, 47, 0.16);
   }
 }
 :root[data-theme="light"] {
@@ -71,10 +73,11 @@
   --border:       #e6dfce;
   --border-hover: #d5cbb5;
 
-  --accent:       #af3a03;
+  --accent:       #b3122f;
+  --accent-hover: #6e0a1e;
 
   --header-bg:    rgba(255, 255, 255, 0.8);
-  --selection:    rgba(175, 58, 3, 0.16);
+  --selection:    rgba(179, 18, 47, 0.16);
 }
 
 /* ── Base ─────────────────────────────────────────────────── */
@@ -543,14 +546,14 @@ div.highlighter-rouge.language-markdown::before     { content: "markdown"; }
    into the left rail and the Kramdown .footnotes into the right rail as
    sidenotes aligned to their references. Falls back to inline TOC + footnotes
    with no JS. Posts get a wider shell so the rails have room. */
-body.is-post { --max-w: 1820px; --toc-w: 220px; --notes-w: 250px; }
+body.is-post { --max-w: 2040px; --toc-w: 220px; --notes-w: 250px; }
 body.is-post main { max-width: none; padding-top: 2.75rem; }
 
 .post {
   position: relative;
   display: grid;
   grid-template-columns: var(--toc-w) minmax(0, var(--content-w)) var(--notes-w);
-  justify-content: center;
+  justify-content: start;          /* anchor TOC + content to the left */
   column-gap: 4.5rem;
 }
 .post-main { min-width: 0; }
@@ -619,6 +622,8 @@ body.is-post main { max-width: none; padding-top: 2.75rem; }
   font-size: 0.72em;
   padding: 0 0.15em;
 }
+.post-body sup[id^="fnref"] a:hover { color: var(--accent-hover); }
+.sidenote a:hover { color: var(--accent-hover); }
 
 /* Collapse to a single column: TOC boxed on top, sources stacked at the bottom */
 @media (max-width: 1180px) {
