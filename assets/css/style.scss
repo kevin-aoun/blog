@@ -543,7 +543,7 @@ div.highlighter-rouge.language-markdown::before     { content: "markdown"; }
    into the left rail and the Kramdown .footnotes into the right rail as
    sidenotes aligned to their references. Falls back to inline TOC + footnotes
    with no JS. Posts get a wider shell so the rails have room. */
-body.is-post { --max-w: 1580px; --toc-w: 210px; --notes-w: 240px; }
+body.is-post { --max-w: 1820px; --toc-w: 220px; --notes-w: 250px; }
 body.is-post main { max-width: none; padding-top: 2.75rem; }
 
 .post {
@@ -551,7 +551,7 @@ body.is-post main { max-width: none; padding-top: 2.75rem; }
   display: grid;
   grid-template-columns: var(--toc-w) minmax(0, var(--content-w)) var(--notes-w);
   justify-content: center;
-  column-gap: 2.75rem;
+  column-gap: 4.5rem;
 }
 .post-main { min-width: 0; }
 
@@ -566,6 +566,12 @@ body.is-post main { max-width: none; padding-top: 2.75rem; }
   line-height: 1.5;
 }
 .post-toc-rail:empty { display: none; }
+.post-toc-rail:not(:empty) {
+  padding: 1.1rem 1.2rem;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
 .post-toc-rail .post-toc-title { margin: 0 0 0.7rem; }
 .post-toc-rail #markdown-toc {
   margin: 0; padding: 0; background: none; border: 0; list-style: none;
