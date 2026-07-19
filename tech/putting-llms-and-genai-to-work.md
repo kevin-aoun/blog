@@ -23,9 +23,9 @@ legacy: true
 
 LLMs and Generative AI have taken the world by storm, and for good reason. These powerful technologies are transforming how we interact with information, create content, and automate tasks.
 
-According to a recent report by McKinsey & Company, generative AI could add the equivalent of $2.6 trillion to $4.4 trillion annually—by comparison, the United Kingdom's entire GDP in 2021 was $3.1 trillion.
+According to a recent report by McKinsey & Company, generative AI could add the equivalent of $2.6 trillion to $4.4 trillion annually—by comparison, the United Kingdom's entire GDP in 2021 was $3.1 trillion.[^mckinsey]
 
-Another study by PwC shows that, quote, "AI could contribute up to $15.7 trillion to the global economy in 2030, more than the current output of China and India combined," endquote.
+Another study by PwC shows that, quote, "AI could contribute up to $15.7 trillion to the global economy in 2030, more than the current output of China and India combined," endquote.[^pwc]
 
 This impact is particularly evident in the startup world. More and more entrepreneurs are leveraging these technologies to build innovative solutions that address **specific industry needs.**
 
@@ -37,7 +37,7 @@ This impact is particularly evident in the startup world. More and more entrepre
 
 Thus, it seems evident that startups need to invest in explainable AI solutions to build trust with their customers.
 
-And with more and more competition in this early field, you're going to need more than an AI to chat with. As of now, you can do that in 3 lines of code using frameworks such as LangChain.
+And with more and more competition in this early field, you're going to need more than an AI to chat with. As of now, you can do that in 3 lines of code using frameworks such as LangChain.[^lcel]
 
 Sounds easy, right? Well, yes, but how useful is this to a huge company with different document sources, different departments, hundreds of users per minute and a non-responsive interface? Not so much.
 
@@ -91,8 +91,6 @@ It's important to remember that using LLMs and Generative AI in production is no
 
 However, while challenges exist, the potential of LLMs and Generative AI for startups is undeniable. By leveraging these technologies responsibly and strategically, startups can gain a competitive advantage, accelerate their growth, and create innovative solutions that address real-world problems.
 
-## References
-
-- <https://python.langchain.com/docs/expression_language/cookbook/prompt_llm_parser>
-- <https://www.pwc.com/gx/en/issues/data-and-analytics/publications/artificial-intelligence-study.html>
-- <https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-AI-the-next-productivity-frontier>
+[^mckinsey]: McKinsey & Company, [The economic potential of generative AI](https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-AI-the-next-productivity-frontier) (2023).
+[^pwc]: PwC, [Sizing the prize — Global AI Study](https://www.pwc.com/gx/en/issues/data-and-analytics/publications/artificial-intelligence-study.html).
+[^lcel]: LangChain, [Prompt + LLM — the LCEL cookbook](https://python.langchain.com/docs/expression_language/cookbook/prompt_llm_parser).

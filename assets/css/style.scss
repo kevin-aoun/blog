@@ -30,28 +30,51 @@
   --max-w:        1400px;
 }
 
-/* Light theme — warm paper, near-black ink, rust accent */
+/* Light theme — Thinking Machines palette: white paper, gruvbox ink + orange.
+   Duplicated across the media query (follows the OS) and [data-theme="light"]
+   (manual toggle) because CSS can't share a token block between the two —
+   keep the two blocks in sync. */
 @media (prefers-color-scheme: light) {
-  :root {
+  :root:not([data-theme="dark"]) {
     color-scheme: light;
 
-    --background:   #c9baa9;
-    --elevated:     #d3c6b6;
-    --hover:        #bcac98;
+    --background:   #ffffff;
+    --elevated:     #f5f1e8;
+    --hover:        #ece5d6;
 
-    --heading:      #02040a;
-    --foreground:   #14161c;
-    --muted:        #6b5d4b;
-    --faint:        #8a7c68;
+    --heading:      #0f005a;
+    --foreground:   #0f005a;
+    --muted:        #5c5680;
+    --faint:        #9a95b8;
 
-    --border:       #b0a08d;
-    --border-hover: #9b8a75;
+    --border:       #e6dfce;
+    --border-hover: #d5cbb5;
 
-    --accent:       #802c03;
+    --accent:       #af3a03;
 
-    --header-bg:    rgba(201, 186, 169, 0.72);
-    --selection:    rgba(128, 44, 3, 0.20);
+    --header-bg:    rgba(255, 255, 255, 0.8);
+    --selection:    rgba(175, 58, 3, 0.16);
   }
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --background:   #ffffff;
+  --elevated:     #f5f1e8;
+  --hover:        #ece5d6;
+
+  --heading:      #0f005a;
+  --foreground:   #0f005a;
+  --muted:        #5c5680;
+  --faint:        #9a95b8;
+
+  --border:       #e6dfce;
+  --border-hover: #d5cbb5;
+
+  --accent:       #af3a03;
+
+  --header-bg:    rgba(255, 255, 255, 0.8);
+  --selection:    rgba(175, 58, 3, 0.16);
 }
 
 /* ── Base ─────────────────────────────────────────────────── */
@@ -146,6 +169,18 @@ a { color: inherit; }
 
 .icon { width: 18px; height: 18px; flex: none; }
 
+/* Theme toggle: show the sun in dark mode (click → light), moon in light mode.
+   Mirrors the token logic above so the right glyph shows with no JS flash. */
+.theme-moon { display: none; }
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .theme-sun { display: none; }
+  :root:not([data-theme="dark"]) .theme-moon { display: block; }
+}
+:root[data-theme="light"] .theme-sun { display: none; }
+:root[data-theme="light"] .theme-moon { display: block; }
+:root[data-theme="dark"] .theme-sun { display: block; }
+:root[data-theme="dark"] .theme-moon { display: none; }
+
 /* ── Layout shell ─────────────────────────────────────────── */
 .layout {
   max-width: var(--max-w);
@@ -226,6 +261,7 @@ main {
   max-width: var(--content-w);
   margin: 0 auto;
   padding: 3.5rem 0 2rem;
+  overflow-wrap: break-word;        /* keep long words from widening the page */
 }
 
 /* ── Prose typography ─────────────────────────────────────── */
@@ -238,7 +274,15 @@ h1, h2, h3, h4, h5, h6 {
   scroll-margin-top: calc(var(--header-h) + 1rem);
 }
 
-h1 { font-size: 2.1rem; margin-top: 0; letter-spacing: -0.03em; }
+h1 {
+  font-family: "Fraunces", Georgia, "Times New Roman", serif;
+  font-optical-sizing: auto;
+  font-weight: 460;                /* stays elegant, not heavy, at large sizes */
+  font-size: 2.7rem;
+  line-height: 1.12;
+  margin-top: 0;
+  letter-spacing: -0.02em;
+}
 h2 { font-size: 1.5rem; padding-bottom: 0.35rem; border-bottom: 1px solid var(--border); }
 h3 { font-size: 1.2rem; }
 h4, h5, h6 { font-size: 1rem; }
@@ -251,6 +295,7 @@ main a {
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
   text-decoration-color: var(--border-hover);
+  overflow-wrap: anywhere;          /* long bare URLs must wrap on phones */
   transition: text-decoration-color 0.15s ease, color 0.15s ease;
 }
 
@@ -413,12 +458,14 @@ div.highlighter-rouge.language-markdown::before     { content: "markdown"; }
   border: 1px solid color-mix(in srgb, var(--callout-color) 45%, transparent);
   border-radius: var(--radius);
   background: color-mix(in srgb, var(--callout-color) 7%, var(--elevated));
-  color: var(--foreground);
+  /* body text = a readable tint of the callout color: mixing with --foreground
+     keeps it light on dark and dark on white automatically. */
+  color: color-mix(in srgb, var(--callout-color) 50%, var(--foreground));
   font-style: normal;              /* override the plain blockquote italic */
 }
 .callout > :first-child { margin-top: 0; }
 .callout > :last-child { margin-bottom: 0; }
-.callout p { font-style: normal; color: var(--foreground); }
+.callout p, .callout li { font-style: normal; color: inherit; }
 
 .callout-title {
   display: flex;
@@ -490,6 +537,103 @@ div.highlighter-rouge.language-markdown::before     { content: "markdown"; }
 #markdown-toc li::marker { color: var(--faint); }
 #markdown-toc a { color: var(--muted); text-decoration: none; }
 #markdown-toc a:hover { color: var(--heading); text-decoration: underline; }
+
+/* ── Post layout: sticky TOC (left) + source sidenotes (right) ─ */
+/* note.html builds three rails; a script (default.html) relocates #markdown-toc
+   into the left rail and the Kramdown .footnotes into the right rail as
+   sidenotes aligned to their references. Falls back to inline TOC + footnotes
+   with no JS. Posts get a wider shell so the rails have room. */
+body.is-post { --max-w: 1580px; --toc-w: 210px; --notes-w: 240px; }
+body.is-post main { max-width: none; padding-top: 2.75rem; }
+
+.post {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--toc-w) minmax(0, var(--content-w)) var(--notes-w);
+  justify-content: center;
+  column-gap: 2.75rem;
+}
+.post-main { min-width: 0; }
+
+/* Left rail — sticky contents */
+.post-toc-rail {
+  position: sticky;
+  top: calc(var(--header-h) + 1.75rem);
+  align-self: start;
+  max-height: calc(100vh - var(--header-h) - 3rem);
+  overflow-y: auto;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+.post-toc-rail:empty { display: none; }
+.post-toc-rail .post-toc-title { margin: 0 0 0.7rem; }
+.post-toc-rail #markdown-toc {
+  margin: 0; padding: 0; background: none; border: 0; list-style: none;
+  font-size: inherit;
+}
+.post-toc-rail #markdown-toc ul { list-style: none; margin: 0.3rem 0 0; padding-left: 0.85rem; }
+.post-toc-rail #markdown-toc li { margin: 0.35rem 0; }
+.post-toc-rail #markdown-toc li::marker { content: ""; }
+.post-toc-rail #markdown-toc a {
+  display: block;
+  color: var(--muted);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  margin-left: -0.85rem;
+  padding-left: 0.85rem;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.post-toc-rail #markdown-toc a:hover { color: var(--heading); }
+.post-toc-rail #markdown-toc a.is-active { color: var(--heading); border-left-color: var(--accent); }
+
+/* Right rail — source sidenotes */
+.post-sources { position: relative; }
+.sidenote {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.sidenote p { margin: 0; font-size: inherit; color: inherit; }
+.sidenote a { overflow-wrap: anywhere; }
+.sidenote-num {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.72rem;
+  margin-right: 0.35rem;
+}
+
+/* Footnote reference markers in the prose */
+.post-body sup[id^="fnref"] a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.72em;
+  padding: 0 0.15em;
+}
+
+/* Collapse to a single column: TOC boxed on top, sources stacked at the bottom */
+@media (max-width: 1180px) {
+  body.is-post { --max-w: 1400px; }
+  .post { display: block; }
+  .post-toc-rail {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    margin-bottom: 2rem;
+  }
+  .post-toc-rail:not(:empty) {
+    padding: 0.9rem 1.2rem;
+    background: var(--elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .post-sources { position: static; margin-top: 2.5rem; }
+  .post-sources:not(:empty) { border-top: 1px solid var(--border); padding-top: 1.25rem; }
+  .sidenote { position: static; width: auto; margin: 0 0 1rem; }
+}
 
 /* ── Tables ───────────────────────────────────────────────── */
 table {

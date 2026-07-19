@@ -8,16 +8,28 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 
   <script>
-    // Restore the desktop sidebar preference before paint (avoids flash).
+    // Restore sidebar + theme preferences before paint (avoids flash).
     try {
       if (localStorage.getItem('sidebar') === 'closed') {
         document.documentElement.setAttribute('data-sidebar', 'closed');
       }
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light' || savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
     } catch (e) {}
+    function toggleTheme() {
+      var el = document.documentElement;
+      var cur = el.getAttribute('data-theme');
+      var isLight = cur ? cur === 'light' : window.matchMedia('(prefers-color-scheme: light)').matches;
+      var next = isLight ? 'dark' : 'light';
+      el.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    }
     function toggleSidebar() {
       var el = document.documentElement;
       var cur = el.getAttribute('data-sidebar');
@@ -30,7 +42,7 @@
     }
   </script>
 </head>
-<body>
+<body class="{% if page.layout == 'note' %}is-post{% endif %}">
   <header class="site-header">
     <div class="site-header-inner">
       <button class="icon-btn" type="button" onclick="toggleSidebar()" aria-label="Toggle sidebar">
@@ -38,6 +50,10 @@
       </button>
       <a href="{{ '/' | relative_url }}" class="site-title"><span class="dot" aria-hidden="true"></span>{{ site.title }}</a>
       <span class="spacer"></span>
+      <button class="icon-btn" type="button" onclick="toggleTheme()" aria-label="Toggle light/dark theme">
+        <svg class="icon theme-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        <svg class="icon theme-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+      </button>
       <a class="icon-btn" href="https://github.com/kevin-aoun" target="_blank" rel="noopener" aria-label="GitHub">
         <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
       </a>
@@ -221,6 +237,90 @@
         header.innerHTML = icon(type) + '<span class="callout-title-text">' + title + '</span>';
         bq.insertBefore(header, bq.firstChild);
       });
+    })();
+  </script>
+
+  <script>
+    // Post layout: move the TOC into the sticky left rail, and the Kramdown
+    // footnotes into the right rail as sidenotes aligned to their references.
+    // Also highlights the current section in the TOC. No-op without a .post.
+    (function () {
+      var post = document.querySelector('.post');
+      if (!post) return;
+      var body = post.querySelector('.post-body');
+      var tocRail = post.querySelector('.post-toc-rail');
+      var sourcesRail = post.querySelector('.post-sources');
+      if (!body) return;
+
+      // 1. Relocate the TOC (and its heading) into the left rail.
+      var toc = body.querySelector('#markdown-toc');
+      if (toc && tocRail) {
+        var title = body.querySelector('.post-toc-title');
+        if (title) tocRail.appendChild(title);
+        tocRail.appendChild(toc);
+      }
+
+      // 2. Turn Kramdown footnotes into right-rail sidenotes.
+      var notes = [];
+      var fnDiv = body.querySelector('.footnotes');
+      if (fnDiv && sourcesRail) {
+        var items = fnDiv.querySelectorAll('ol > li');
+        Array.prototype.forEach.call(items, function (li) {
+          var num = (li.id.split(':')[1] || '');
+          var note = document.createElement('div');
+          note.className = 'sidenote';
+          var inner = li.innerHTML.replace(/<a\b[^>]*reversefootnote[^>]*>[\s\S]*?<\/a>/i, '');
+          note.innerHTML = '<sup class="sidenote-num">' + num + '</sup>' + inner;
+          note._ref = document.getElementById('fnref:' + num);
+          sourcesRail.appendChild(note);
+          notes.push(note);
+        });
+        fnDiv.style.display = 'none';
+      }
+
+      function positionNotes() {
+        if (!notes.length) return;
+        if (window.innerWidth <= 1180) { notes.forEach(function (n) { n.style.top = ''; }); return; }
+        var railTop = sourcesRail.getBoundingClientRect().top + window.pageYOffset;
+        var prevBottom = 0;
+        notes.forEach(function (n) {
+          if (!n._ref) return;
+          var refTop = n._ref.getBoundingClientRect().top + window.pageYOffset;
+          var top = Math.max(refTop - railTop, prevBottom);
+          n.style.top = top + 'px';
+          prevBottom = top + n.offsetHeight + 14;
+        });
+      }
+
+      // 3. Scroll-spy for the TOC.
+      var links = tocRail ? tocRail.querySelectorAll('a[href^="#"]') : [];
+      var targets = [];
+      Array.prototype.forEach.call(links, function (a) {
+        var el = document.getElementById(decodeURIComponent(a.getAttribute('href').slice(1)));
+        if (el) targets.push({ a: a, el: el });
+      });
+      function spy() {
+        if (!targets.length) return;
+        var line = (parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 80) + 12;
+        var cur = null;
+        targets.forEach(function (t) { if (t.el.getBoundingClientRect().top <= line) cur = t; });
+        Array.prototype.forEach.call(links, function (a) { a.classList.remove('is-active'); });
+        (cur || targets[0]).a.classList.add('is-active');
+      }
+
+      var raf;
+      window.addEventListener('scroll', function () {
+        if (raf) return;
+        raf = requestAnimationFrame(function () { raf = null; spy(); });
+      }, { passive: true });
+      var rt;
+      window.addEventListener('resize', function () {
+        clearTimeout(rt);
+        rt = setTimeout(function () { positionNotes(); spy(); }, 120);
+      });
+      window.addEventListener('load', function () { positionNotes(); spy(); });
+      positionNotes();
+      spy();
     })();
   </script>
 </body>

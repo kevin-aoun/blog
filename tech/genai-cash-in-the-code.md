@@ -18,7 +18,7 @@ legacy: true
 
 ## Introduction
 
-According to a recent report by McKinsey & Company, generative AI could add the equivalent of $2.6 trillion to $4.4 trillion annually—by comparison, the United Kingdom's entire GDP in 2021 was $3.1 trillion.
+According to a recent report by McKinsey & Company, generative AI could add the equivalent of $2.6 trillion to $4.4 trillion annually—by comparison, the United Kingdom's entire GDP in 2021 was $3.1 trillion.[^mck]
 
 This impact is particularly evident in the startup world. More and more entrepreneurs are leveraging these technologies to build innovative solutions that address **specific industry needs.**
 
@@ -36,7 +36,7 @@ In LLM development, be it Retrieval Augmented Generation (RAG) or Agentic Behavi
 
 ## LangChain
 
-With over 20M downloads of their open-source package powering 30k+ apps, it's safe to say that LangChain is one of the most popular LLM orchestrating frameworks as of today.
+With over 20M downloads of their open-source package powering 30k+ apps, it's safe to say that LangChain is one of the most popular LLM orchestrating frameworks as of today.[^lcpop]
 
 You can get started with LangChain in a few lines of code:
 
@@ -125,3 +125,6 @@ Recognizing the synergy between the two — LangChain for efficient orchestratio
 
 > [!note] Disclaimer
 > The technologies and companies mentioned in this article are for informational purposes only and do not constitute endorsement or sponsorship. Please perform your own research.
+
+[^mck]: McKinsey & Company, [The economic potential of generative AI](https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-AI-the-next-productivity-frontier) (2023).
+[^lcpop]: Adoption figures from LangChain's public usage reporting.
