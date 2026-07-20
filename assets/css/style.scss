@@ -36,38 +36,38 @@
   :root:not([data-theme="dark"]) {
     color-scheme: light;
 
-    --background:   #ffffff;
-    --elevated:     #f5f1e8;
-    --hover:        #ece5d6;
+    --background:   #f4ecda;
+    --elevated:     #ece2cb;
+    --hover:        #e5d9bd;
 
     --heading:      #0f005a;
     --foreground:   #0f005a;
     --muted:        #5c5680;
     --faint:        #9a95b8;
 
-    --border:       #e6dfce;
-    --border-hover: #d5cbb5;
+    --border:       #dccfb0;
+    --border-hover: #cabf9a;
 
-    --header-bg:    rgba(255, 255, 255, 0.8);
+    --header-bg:    rgba(244, 236, 218, 0.82);
     --selection:    rgba(15, 0, 90, 0.12);
   }
 }
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --background:   #ffffff;
-  --elevated:     #f5f1e8;
-  --hover:        #ece5d6;
+  --background:   #f4ecda;
+  --elevated:     #ece2cb;
+  --hover:        #e5d9bd;
 
   --heading:      #0f005a;
   --foreground:   #0f005a;
   --muted:        #5c5680;
   --faint:        #9a95b8;
 
-  --border:       #e6dfce;
-  --border-hover: #d5cbb5;
+  --border:       #dccfb0;
+  --border-hover: #cabf9a;
 
-  --header-bg:    rgba(255, 255, 255, 0.8);
+  --header-bg:    rgba(244, 236, 218, 0.82);
   --selection:    rgba(15, 0, 90, 0.12);
 }
 

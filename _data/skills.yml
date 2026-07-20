@@ -1,16 +1,21 @@
 # Each entry becomes a card in the "Skills" section on the About page.
-# Add or remove entries freely.
 #   name: the skill's name
 #   desc: a one-line "introspect" of what it does
-#   url:  where it lives (a GitHub repo, a folder in a repo, or a release/download)
-#
-# These are PLACEHOLDERS — replace with your real skills and links.
-- name: Deck Builder
-  desc: Turns an outline into a self-contained HTML slide deck in a fixed style.
-  url: https://github.com/kevin-aoun
-- name: Repo Docs
-  desc: Scans a codebase and writes a README-as-hub with an architecture map.
-  url: https://github.com/kevin-aoun
-- name: Data Viz
-  desc: Produces consistent, accessible charts across light and dark themes.
-  url: https://github.com/kevin-aoun
+#   url:  a PUBLIC link (GitHub repo/folder or a release). A local path like
+#         ~/.agents/skills/... will not work for visitors, so publish the
+#         skills to a public repo and point these there.
+# Names + descriptions below are pulled from ~/.agents/skills; the URLs are
+# placeholders pointing at github.com/kevin-aoun/skills — create/adjust that
+# repo (or tell me the real one) and the links will resolve.
+- name: deckify
+  desc: Build self-contained HTML slide decks in a reasoning-first workshop style.
+  url: https://github.com/kevin-aoun/skills/tree/main/deckify
+- name: readme
+  desc: Write or standardize a project's docs as a README hub with reference and design docs.
+  url: https://github.com/kevin-aoun/skills/tree/main/readme
+- name: progress-report
+  desc: Compile a one-slide Done / In progress / Next up phase progress board.
+  url: https://github.com/kevin-aoun/skills/tree/main/progress-report
+- name: orchestrating-codex
+  desc: Delegate and steer coding work on the OpenAI Codex CLI, task by task.
+  url: https://github.com/kevin-aoun/skills/tree/main/orchestrating-codex
