@@ -6,7 +6,7 @@ layout: default
 
   <div class="post-main">
     <header class="note-header">
-      <h1 class="note-title">{{ page.title }}{% if page.legacy %} <span class="legacy-tag">Legacy</span>{% endif %}</h1>
+      <h1 class="note-title">{{ page.title }}</h1>
       {% if page.description %}<p class="note-description">{{ page.description }}</p>{% endif %}
       {% if page.date or page.author %}
       <p class="note-meta">
@@ -14,6 +14,12 @@ layout: default
         {%- if page.date and page.author %} · {% endif -%}
         {%- if page.author %}{{ page.author }}{% endif -%}
       </p>
+      {% endif %}
+      {% if page.parent or page.legacy %}
+      <div class="note-tags">
+        {% if page.parent %}<span class="tag tag--{{ page.parent | downcase }}">{{ page.parent }}</span>{% endif %}
+        {% if page.legacy %}<span class="tag tag--legacy">Legacy</span>{% endif %}
+      </div>
       {% endif %}
     </header>
 
