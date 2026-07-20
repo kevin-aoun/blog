@@ -756,6 +756,11 @@ th { color: var(--heading); font-weight: 600; }
 .tool-ic--obsidian { color: #7c3aed; }
 .tool-ic--md { color: #3b82f6; }
 
+.stack-notes { margin: 0.9rem 0 0; font-size: 0.85rem; color: var(--muted); line-height: 1.55; }
+.stack-notes p { margin: 0 0 0.45rem; }
+.stack-notes p:last-child { margin-bottom: 0; }
+.stack-notes-label { color: var(--heading); font-weight: 600; }
+
 @media (max-width: 520px) {
   .stack-item { flex-wrap: wrap; }
   .stack-role { width: auto; }

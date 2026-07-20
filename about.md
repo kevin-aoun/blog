@@ -21,6 +21,11 @@ I don't write my posts with AI. I believe AI is an assistant, not a replacement 
   <li class="stack-item"><span class="stack-role">Notes</span><span class="stack-tool"><span class="tool-ic tool-ic--obsidian">{% include_relative assets/icons/obsidian.svg %}</span>Obsidian + <span class="tool-ic tool-ic--md">{% include_relative assets/icons/markdown.svg %}</span>Markdown</span></li>
 </ul>
 
+<div class="stack-notes">
+  <p><span class="stack-notes-label">Main LLM</span> is for research and heavy tasks. I run it as a critique loop, where GPT reviews and critiques Fable and we iterate on the feedback.</p>
+  <p><span class="stack-notes-label">Workhorse LLM</span> is what I reach for inside the solutions I design, when I need something quick, multimodal, and cheap.</p>
+</div>
+
 ## Skills
 
 <div class="skills-head">
