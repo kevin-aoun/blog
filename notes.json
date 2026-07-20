@@ -1,5 +1,7 @@
 ---
+layout: none
 permalink: /notes.json
+sitemap: false
 ---
 {% assign notes = site.pages | where_exp: "p", "p.date" | sort: "date" | reverse -%}
 [{% for n in notes %}{% unless forloop.first %},{% endunless %}
