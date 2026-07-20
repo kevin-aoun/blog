@@ -5,4 +5,17 @@ permalink: /about/
 
 # About
 
-I'm Kevin — an AI / mechatronics engineer who likes to think in Markdown.
+I'm an AI engineer with 3 years of hands-on experience, from POCs to cloud deployments and startups. I have worked across domains like browser agents, voice AI, finetuning transformers for translation, reinforcement learning, and computer vision.
+
+<p class="human-badge"><span class="badge-ic">{% include_relative assets/icons/human-made.svg %}</span> Human made blog</p>
+
+I don't write my posts with AI. I believe AI is an assistant, not a replacement for your own engineering judgement and critical thinking. You can hand it the busywork, gathering information and fact-checking it, or implementing a plan you already made, but it should never be in the driver's seat.
+
+## My stack
+
+<ul class="stack">
+  <li class="stack-item"><span class="stack-ic">{% include_relative assets/icons/sparkles.svg %}</span><span class="stack-role">Main LLM</span><span class="stack-tool">Claude Fable 5</span></li>
+  <li class="stack-item"><span class="stack-ic">{% include_relative assets/icons/bot.svg %}</span><span class="stack-role">Subagents</span><span class="stack-tool">GPT Sol 5</span></li>
+  <li class="stack-item"><span class="stack-ic">{% include_relative assets/icons/terminal.svg %}</span><span class="stack-role">Harness</span><span class="stack-tool">Claude Code</span></li>
+  <li class="stack-item"><span class="stack-ic">{% include_relative assets/icons/markdown.svg %}</span><span class="stack-role">Notes</span><span class="stack-tool">Obsidian + Markdown</span></li>
+</ul>

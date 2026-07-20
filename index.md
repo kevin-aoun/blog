@@ -2,10 +2,6 @@
 title: Home
 ---
 
-# Kevin's Notes
-
-A place to park ideas before they evaporate — philosophy, tech, and whatever else is on my mind.
-
 {% assign notes = site.pages | where_exp: "p", "p.date" | sort: "date" | reverse %}
 {% if notes == empty %}
 No notes yet.
