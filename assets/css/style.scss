@@ -776,6 +776,7 @@ th { color: var(--heading); font-weight: 600; }
 /* ── Graph ────────────────────────────────────────────────── */
 .graph-hint { color: var(--muted); font-size: 0.9rem; margin-top: 0; }
 .graph {
+  position: relative;               /* contain force-graph's absolute canvas */
   width: 100%;
   height: 70vh;
   min-height: 420px;
