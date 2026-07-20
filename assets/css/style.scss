@@ -749,6 +749,7 @@ th { color: var(--heading); font-weight: 600; }
 .stack-tool { color: var(--foreground); }
 .tool-ic { display: inline-flex; vertical-align: -0.22em; margin-right: 0.35rem; }
 .tool-ic svg { width: 18px; height: 18px; }
+.tool-ic--claude { color: #d97757; }
 .tool-ic--obsidian { color: #7c3aed; }
 .tool-ic--md { color: #3b82f6; }
 
@@ -783,6 +784,7 @@ th { color: var(--heading); font-weight: 600; }
   background: var(--elevated);
   overflow: hidden;
 }
+.graph-msg { padding: 1.5rem; color: var(--muted); font-size: 0.9rem; }
 
 /* ── Footer ───────────────────────────────────────────────── */
 .site-footer {
