@@ -7,12 +7,12 @@ permalink: /graph/
 
 <p class="graph-hint">Notes cluster around their topic. Lines are <code>[[wikilinks]]</code> between notes. Click a node to open it.</p>
 
-<div id="graph" class="graph"></div>
+<div id="graphview" class="graph"></div>
 
 <script src="{{ '/assets/js/force-graph.min.js' | relative_url }}"></script>
 <script>
   (function () {
-    var el = document.getElementById('graph');
+    var el = document.getElementById('graphview');
     if (!el) return;
     function msg(t) { el.innerHTML = '<p class="graph-msg">' + t + '</p>'; }
     if (typeof ForceGraph === 'undefined') { msg('Graph library failed to load (force-graph.min.js).'); return; }
