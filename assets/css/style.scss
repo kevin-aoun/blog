@@ -739,8 +739,6 @@ th { color: var(--heading); font-weight: 600; }
   padding: 0.7rem 0.1rem;
   border-bottom: 1px solid var(--border);
 }
-.stack-ic { flex: none; display: inline-flex; color: var(--foreground); }
-.stack-ic svg { width: 22px; height: 22px; }
 .stack-role {
   flex: none;
   width: 8.5rem;
@@ -749,6 +747,10 @@ th { color: var(--heading); font-weight: 600; }
   font-size: 0.95rem;
 }
 .stack-tool { color: var(--foreground); }
+.tool-ic { display: inline-flex; vertical-align: -0.22em; margin-right: 0.35rem; }
+.tool-ic svg { width: 18px; height: 18px; }
+.tool-ic--obsidian { color: #7c3aed; }
+.tool-ic--md { color: #3b82f6; }
 
 @media (max-width: 520px) {
   .stack-item { flex-wrap: wrap; }

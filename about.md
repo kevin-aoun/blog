@@ -14,8 +14,8 @@ I don't write my posts with AI. I believe AI is an assistant, not a replacement 
 ## My stack
 
 <ul class="stack">
-  <li class="stack-item"><span class="stack-ic">{% include_relative assets/icons/sparkles.svg %}</span><span class="stack-role">Main LLM</span><span class="stack-tool">Claude Fable 5</span></li>
-  <li class="stack-item"><span class="stack-ic">{% include_relative assets/icons/bot.svg %}</span><span class="stack-role">Subagents</span><span class="stack-tool">GPT Sol 5</span></li>
-  <li class="stack-item"><span class="stack-ic">{% include_relative assets/icons/terminal.svg %}</span><span class="stack-role">Harness</span><span class="stack-tool">Claude Code</span></li>
-  <li class="stack-item"><span class="stack-ic">{% include_relative assets/icons/markdown.svg %}</span><span class="stack-role">Notes</span><span class="stack-tool">Obsidian + Markdown</span></li>
+  <li class="stack-item"><span class="stack-role">Main LLM</span><span class="stack-tool"><span class="tool-ic">{% include_relative assets/icons/claude.svg %}</span>Claude Fable 5</span></li>
+  <li class="stack-item"><span class="stack-role">Subagents</span><span class="stack-tool"><span class="tool-ic">{% include_relative assets/icons/openai.svg %}</span>GPT Sol 5</span></li>
+  <li class="stack-item"><span class="stack-role">Harness</span><span class="stack-tool"><span class="tool-ic">{% include_relative assets/icons/terminal.svg %}</span>Claude Code</span></li>
+  <li class="stack-item"><span class="stack-role">Notes</span><span class="stack-tool"><span class="tool-ic tool-ic--obsidian">{% include_relative assets/icons/obsidian.svg %}</span>Obsidian + <span class="tool-ic tool-ic--md">{% include_relative assets/icons/markdown.svg %}</span>Markdown</span></li>
 </ul>
