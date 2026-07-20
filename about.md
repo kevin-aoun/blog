@@ -9,7 +9,7 @@ I'm an AI engineer with 3 years of hands-on experience, from POCs to cloud deplo
 
 <p class="human-badge"><span class="badge-ic">{% include_relative assets/icons/human-made.svg %}</span> Human made blog</p>
 
-I don't write my posts with AI. I believe AI is an assistant, not a replacement for your own engineering judgement and critical thinking. You can hand it the busywork, gathering information and fact-checking it, or implementing a plan you already made, but it should never be in the driver's seat.
+I don't let AI write my posts. Sure, I use it to brainstorm ideas and to polish how I deliver them, but never in full control. It is an assistant, not a replacement for my own judgement and critical thinking.
 
 ## My stack
 
