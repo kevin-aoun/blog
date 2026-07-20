@@ -59,12 +59,17 @@ permalink: /graph/
             ctx.globalAlpha = node.kind === 'hub' ? 0.35 : 1;
             ctx.fill();
             ctx.globalAlpha = 1;
+            // Fade labels out as you zoom out, to avoid clutter.
+            var la = Math.max(0, Math.min(1, (scale - 0.8) / 0.5));
+            if (la < 0.03) return;
             var label = node.kind === 'hub' ? node.label : node.id;
             ctx.font = (node.kind === 'hub' ? 12 : 10) / scale + 'px Geist, sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'top';
+            ctx.globalAlpha = la;
             ctx.fillStyle = node.kind === 'hub' ? catColor(node.cat) : tok('--foreground');
             ctx.fillText(label, node.x, node.y + r + 2);
+            ctx.globalAlpha = 1;
           })
           .nodePointerAreaPaint(function (node, color, ctx) {
             ctx.fillStyle = color;
@@ -72,6 +77,21 @@ permalink: /graph/
             ctx.arc(node.x, node.y, 8, 0, 2 * Math.PI);
             ctx.fill();
           });
+
+        // Keep every node (including a dragged one) inside a bounded box so
+        // nothing can be flung off the frame and vanish.
+        var BX = 240, BY = 165;
+        function clamp(v, m) { return Math.max(-m, Math.min(m, v)); }
+        fg.d3Force('bound', function () {
+          nodes.forEach(function (n) {
+            n.x = clamp(n.x, BX); n.y = clamp(n.y, BY);
+            if (n.fx != null) n.fx = clamp(n.fx, BX);
+            if (n.fy != null) n.fy = clamp(n.fy, BY);
+          });
+        });
+        fg.minZoom(0.6).maxZoom(8);
+        var fitted = false;
+        fg.onEngineStop(function () { if (!fitted) { fitted = true; fg.zoomToFit(400, 30); } });
 
         function resize() { fg.width(el.clientWidth).height(el.clientHeight); }
         resize();
