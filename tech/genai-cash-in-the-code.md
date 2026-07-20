@@ -123,6 +123,8 @@ LangChain proves efficient in LLM orchestration and excels in crafting custom ag
 
 Recognizing the synergy between the two — LangChain for efficient orchestration and LlamaIndex for efficient data querying — their combined capabilities promise a robust and tailored application ready to face the competitive AI market.
 
+For the broader startup journey behind these lessons, see [[Putting LLMs and GenAI to Work]].
+
 > [!note] Disclaimer
 > The technologies and companies mentioned in this article are for informational purposes only and do not constitute endorsement or sponsorship. Please perform your own research.
 

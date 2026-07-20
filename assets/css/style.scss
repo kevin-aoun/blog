@@ -757,6 +757,33 @@ th { color: var(--heading); font-weight: 600; }
   .stack-role { width: auto; }
 }
 
+/* ── Wikilinks ────────────────────────────────────────────── */
+/* [[Note]] links, resolved client-side against the build-time link map. */
+.wikilink {
+  color: var(--heading);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+}
+.wikilink:hover { text-decoration-style: solid; }
+.wikilink--missing {
+  color: var(--muted);
+  cursor: help;
+  text-decoration-color: var(--faint);
+}
+
+/* ── Graph ────────────────────────────────────────────────── */
+.graph-hint { color: var(--muted); font-size: 0.9rem; margin-top: 0; }
+.graph {
+  width: 100%;
+  height: 70vh;
+  min-height: 420px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--elevated);
+  overflow: hidden;
+}
+
 /* ── Footer ───────────────────────────────────────────────── */
 .site-footer {
   max-width: var(--content-w);

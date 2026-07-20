@@ -1,0 +1,7 @@
+---
+permalink: /notes.json
+---
+{% assign notes = site.pages | where_exp: "p", "p.date" | sort: "date" | reverse -%}
+[{% for n in notes %}{% unless forloop.first %},{% endunless %}
+{"title":{{ n.title | jsonify }},"url":{{ n.url | relative_url | jsonify }},"category":{{ n.parent | default: "Notes" | jsonify }},"links":[{% assign first = true %}{% for m in notes %}{% assign needle = "[[" | append: m.title | append: "]]" %}{% if m.title != n.title and n.content contains needle %}{% unless first %},{% endunless %}{{ m.title | jsonify }}{% assign first = false %}{% endif %}{% endfor %}]}{% endfor %}
+]

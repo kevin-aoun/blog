@@ -17,6 +17,8 @@ nav:
   - title: Tech
     url: /tech/
     section: Tech
+  - title: Graph
+    url: /graph/
   - title: About
     url: /about/
 

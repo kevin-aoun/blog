@@ -323,5 +323,49 @@
       spy();
     })();
   </script>
+
+  <script>
+    // Wikilinks: turn [[Note Title]] / [[Note Title|alias]] in prose into links
+    // using a title -> url map built at build time. Unknown targets render as
+    // plain (dimmed) text. Skips code, pre, links, and headings.
+    window.WIKILINKS = { {% assign _wl = site.pages | where_exp: "p", "p.date" %}{% for n in _wl %}{% unless forloop.first %},{% endunless %}{{ n.title | jsonify }}: {{ n.url | relative_url | jsonify }}{% endfor %} };
+    (function () {
+      var main = document.querySelector('main');
+      if (!main || !/\[\[/.test(main.textContent)) return;
+      var walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, {
+        acceptNode: function (node) {
+          if (!node.nodeValue || node.nodeValue.indexOf('[[') === -1) return NodeFilter.FILTER_REJECT;
+          for (var p = node.parentNode; p && p !== main; p = p.parentNode) {
+            if (/^(CODE|PRE|A|H1|H2|H3|H4|H5|H6)$/.test(p.nodeName)) return NodeFilter.FILTER_REJECT;
+          }
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      var targets = [], node;
+      while ((node = walker.nextNode())) targets.push(node);
+      targets.forEach(function (n) {
+        var text = n.nodeValue, re = /\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, frag = document.createDocumentFragment(), last = 0, m;
+        while ((m = re.exec(text))) {
+          if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+          var title = m[1].trim(), label = (m[2] || m[1]).trim(), url = window.WIKILINKS[title];
+          if (url) {
+            var a = document.createElement('a');
+            a.className = 'wikilink';
+            a.href = url;
+            a.textContent = label;
+            frag.appendChild(a);
+          } else {
+            var s = document.createElement('span');
+            s.className = 'wikilink wikilink--missing';
+            s.textContent = label;
+            frag.appendChild(s);
+          }
+          last = m.index + m[0].length;
+        }
+        if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+        n.parentNode.replaceChild(frag, n);
+      });
+    })();
+  </script>
 </body>
 </html>
