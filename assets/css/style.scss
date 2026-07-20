@@ -110,8 +110,8 @@ a { color: inherit; }
 }
 
 .site-header-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
   height: var(--header-h);
   display: flex;
   align-items: center;
@@ -169,8 +169,8 @@ a { color: inherit; }
 
 /* ── Layout shell ─────────────────────────────────────────── */
 .layout {
-  max-width: var(--max-w);
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
   display: grid;
   grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
   align-items: start;
@@ -729,16 +729,19 @@ th { color: var(--heading); font-weight: 600; }
 .stack {
   list-style: none;
   margin: 1.5rem 0;
-  padding: 0;
-  border-top: 1px solid var(--border);
+  padding: 0 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--elevated);
 }
 .stack-item {
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  padding: 0.7rem 0.1rem;
+  padding: 0.75rem 0;
   border-bottom: 1px solid var(--border);
 }
+.stack-item:last-child { border-bottom: 0; }
 .stack-role {
   flex: none;
   width: 8.5rem;
@@ -757,6 +760,47 @@ th { color: var(--heading); font-weight: 600; }
   .stack-item { flex-wrap: wrap; }
   .stack-role { width: auto; }
 }
+
+/* Skills: cards edited via _data/skills.yml */
+.skills-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.skills-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.skills-all:hover { color: var(--heading); }
+.skills {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.85rem;
+  margin: 1.25rem 0;
+}
+.skill-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--elevated);
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.skill-card:hover { border-color: var(--border-hover); transform: translateY(-1px); }
+.skill-name { color: var(--heading); font-weight: 600; font-size: 0.98rem; }
+.skill-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+.skill-link { margin-top: 0.35rem; color: var(--foreground); font-size: 0.8rem; font-family: "Geist Mono", monospace; }
+.skill-card:hover .skill-link { color: var(--heading); }
 
 /* ── Wikilinks ────────────────────────────────────────────── */
 /* [[Note]] links, resolved client-side against the build-time link map. */
