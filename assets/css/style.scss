@@ -798,6 +798,7 @@ th { color: var(--heading); font-weight: 600; }
   margin: 1.25rem 0;
 }
 .skill-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
@@ -805,12 +806,23 @@ th { color: var(--heading); font-weight: 600; }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--elevated);
-  text-decoration: none;
   transition: border-color 0.15s ease, transform 0.15s ease;
 }
+/* Stretched link: covers the whole card so the card stays clickable,
+   while leaving room for independently-clickable links (e.g. credit). */
+.skill-card__main { position: absolute; inset: 0; z-index: 0; border-radius: inherit; }
 .skill-card:hover { border-color: var(--border-hover); transform: translateY(-1px); }
 .skill-name { color: var(--heading); font-weight: 600; font-size: 0.98rem; }
 .skill-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+.skill-credit { color: var(--muted); font-size: 0.8rem; }
+.skill-credit a {
+  position: relative;
+  z-index: 1;
+  color: var(--foreground);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.skill-credit a:hover { color: var(--heading); }
 .skill-link { margin-top: 0.35rem; color: var(--foreground); font-size: 0.8rem; font-family: "Geist Mono", monospace; }
 .skill-card:hover .skill-link { color: var(--heading); }
 

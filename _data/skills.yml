@@ -4,6 +4,8 @@
 #   url:  a PUBLIC link (GitHub repo/folder or a release). A local path like
 #         ~/.agents/skills/... will not work for visitors, so publish the
 #         skills to a public repo and point these there.
+#   credit_name / credit_url: optional. Renders a "Shared with me by <name>"
+#         line on the card, with <name> linking to credit_url.
 # Names + descriptions below are pulled from ~/.agents/skills; the URLs are
 # placeholders pointing at github.com/kevin-aoun/skills — create/adjust that
 # repo (or tell me the real one) and the links will resolve.
@@ -19,3 +21,5 @@
 - name: orchestrating-codex
   desc: Delegate and steer coding work on the OpenAI Codex CLI, task by task.
   url: https://github.com/kevin-aoun/skills/tree/main/orchestrating-codex
+  credit_name: Joe
+  credit_url: https://www.linkedin.com/in/joehaddad03/

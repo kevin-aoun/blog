@@ -35,10 +35,14 @@ I don't let AI write my posts. Sure, I use it to brainstorm ideas and to polish 
 
 <div class="skills">
 {% for skill in site.data.skills %}
-  <a class="skill-card" href="{{ skill.url }}" target="_blank" rel="noopener">
+  <div class="skill-card">
+    <a class="skill-card__main" href="{{ skill.url }}" target="_blank" rel="noopener" aria-label="{{ skill.name }} on GitHub"></a>
     <span class="skill-name">{{ skill.name }}</span>
     <span class="skill-desc">{{ skill.desc }}</span>
+    {% if skill.credit_name %}
+    <span class="skill-credit">Shared with me by <a href="{{ skill.credit_url }}" target="_blank" rel="noopener">{{ skill.credit_name }}</a></span>
+    {% endif %}
     <span class="skill-link">View + download</span>
-  </a>
+  </div>
 {% endfor %}
 </div>
