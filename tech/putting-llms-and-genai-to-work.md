@@ -91,8 +91,6 @@ It's important to remember that using LLMs and Generative AI in production is no
 
 However, while challenges exist, the potential of LLMs and Generative AI for startups is undeniable. By leveraging these technologies responsibly and strategically, startups can gain a competitive advantage, accelerate their growth, and create innovative solutions that address real-world problems.
 
-For a framework-level deep dive into LangChain and LlamaIndex, see [[GenAI: Cash in the Code]].
-
 [^mckinsey]: McKinsey & Company, [The economic potential of generative AI](https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/the-economic-potential-of-generative-AI-the-next-productivity-frontier) (2023).
 [^pwc]: PwC, [Sizing the prize — Global AI Study](https://www.pwc.com/gx/en/issues/data-and-analytics/publications/artificial-intelligence-study.html).
 [^lcel]: LangChain, [Prompt + LLM — the LCEL cookbook](https://python.langchain.com/docs/expression_language/cookbook/prompt_llm_parser).
