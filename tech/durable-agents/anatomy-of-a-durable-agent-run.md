@@ -23,12 +23,12 @@ legacy: false
 
 Then you ship it, and one day it dies mid-run. A deploy restarts the container, or the API rate-limits. The run had already made twenty model calls, and now they're gone.
 
-Durable execution is the fix the industry settled on, and [Temporal](https://temporal.io/) is a prominent name behind it: a [$300M Series D in February 2026](https://temporal.io/blog/temporal-raises-usd300m-series-d-at-a-usd5b-valuation), [Replit's agent running on it](https://temporal.io/resources/case-studies/replit-uses-temporal-to-power-replit-agent-reliably-at-scale), and OpenAI and Lovable on its user list (their claim, not mine).
+Durable execution is the fix the industry settled on, and [Temporal](https://temporal.io/) is a prominent name behind it: a $300M Series D in February 2026[^series-d], Replit's agent running on it[^replit], and OpenAI and Lovable on its user list (their claim, not mine).
 
 Temporal now also has integrations with most agent orchestration frameworks: 
-- [Pydantic AI shipped native support in November 2025](https://temporal.io/blog/build-durable-ai-agents-pydantic-ai-and-temporal)
-- [OpenAI Agents SDK integration went GA in March 2026](https://temporal.io/blog/announcing-openai-agents-sdk-integration)
-- [LangGraph got an official plugin in July 2026](https://temporal.io/blog/temporal-langgraph-plugin-durable-execution).
+- Pydantic AI shipped native support in November 2025[^pydantic]
+- OpenAI Agents SDK integration went GA in March 2026[^openai-sdk]
+- LangGraph got an official plugin in July 2026[^langgraph]
 
 So apparently "durable" is everywhere now. But what does it physically mean? 
 
@@ -243,4 +243,10 @@ If you misspell the task queue instead, the task is never picked up at all.
 - The server never holds code, deliberately: Code, dependencies, keys stay on workers
 - A server-side type registry would be stale by construction (workers boot, die, and deploy continuously), and start-time validation is a TOCTOU trap: passing the check guarantees nothing at execution time
 - Precedents in the same pattern: RabbitMQ does not validate consumers can parse messages; Kafka brokers do not know schemas (Schema Registry is a separate optional component); load balancers do not know whether backends implement routes.
+
+[^series-d]: Temporal, [Temporal raises $300M Series D at a $5B valuation](https://temporal.io/blog/temporal-raises-usd300m-series-d-at-a-usd5b-valuation) (February 2026).
+[^replit]: Temporal, [Replit uses Temporal to power Replit Agent reliably at scale](https://temporal.io/resources/case-studies/replit-uses-temporal-to-power-replit-agent-reliably-at-scale).
+[^pydantic]: Temporal, [Build durable AI agents with Pydantic AI and Temporal](https://temporal.io/blog/build-durable-ai-agents-pydantic-ai-and-temporal) (November 2025).
+[^openai-sdk]: Temporal, [Announcing the OpenAI Agents SDK integration](https://temporal.io/blog/announcing-openai-agents-sdk-integration) (March 2026).
+[^langgraph]: Temporal, [Temporal LangGraph plugin: durable execution](https://temporal.io/blog/temporal-langgraph-plugin-durable-execution) (July 2026).
 
