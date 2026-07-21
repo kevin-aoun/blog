@@ -20,6 +20,8 @@
 
   --header-bg:    rgba(2, 4, 10, 0.72);
   --selection:    rgba(255, 255, 255, 0.16);
+  --cc-ship:      #f1c40f;
+  --cc-green:     #2ecc71;
 
   --radius:       0.5rem;
   --content-w:    720px;
@@ -50,6 +52,8 @@
 
     --header-bg:    rgba(244, 236, 218, 0.82);
     --selection:    rgba(15, 0, 90, 0.12);
+    --cc-ship:      #c2740c;
+    --cc-green:     #1f9e57;
   }
 }
 :root[data-theme="light"] {
@@ -69,6 +73,8 @@
 
   --header-bg:    rgba(244, 236, 218, 0.82);
   --selection:    rgba(15, 0, 90, 0.12);
+    --cc-ship:      #c2740c;
+    --cc-green:     #1f9e57;
 }
 
 /* ── Base ─────────────────────────────────────────────────── */
@@ -480,7 +486,7 @@ div.highlighter-rouge.language-markdown::before     { content: "markdown"; }
 .callout[data-callout="bug"]       { --callout-color: #e5484d; }
 .callout[data-callout="success"],
 .callout[data-callout="check"],
-.callout[data-callout="done"]      { --callout-color: #2ecc71; }
+.callout[data-callout="done"]      { --callout-color: var(--cc-green); }
 .callout[data-callout="question"],
 .callout[data-callout="help"],
 .callout[data-callout="quote"]     { --callout-color: var(--border-hover); }
@@ -488,9 +494,9 @@ div.highlighter-rouge.language-markdown::before     { content: "markdown"; }
 
 /* Custom types */
 .callout[data-callout="heart"]     { --callout-color: #ff8ff7; }
-.callout[data-callout="def"]       { --callout-color: #2ecc71; }
+.callout[data-callout="def"]       { --callout-color: var(--cc-green); }
 .callout[data-callout="target"]    { --callout-color: #3498db; }
-.callout[data-callout="ship"]      { --callout-color: #f1c40f; }
+.callout[data-callout="ship"]      { --callout-color: var(--cc-ship); }
 .callout[data-callout="confetti"]  { --callout-color: #b266ff; }
 
 /* ── Table of contents ────────────────────────────────────── */
