@@ -35,7 +35,7 @@ So apparently "durable" is everywhere now. But what does it physically mean?
 Instead of starting with a framework comparison, let's actually make it happen and check what's under the hood. 
 
 ---
-## 1. Laying the Foundations (quickly)
+## 1. Laying the foundations (quickly)
 
 *You can skip directly to [Setup] for hands on code. This section explains visually how Temporal works under the hood.*
 
@@ -58,7 +58,7 @@ When replaying your run, Temporal starts from the beginning and executes workflo
 
 *Workflows decide, activities do. Every completed activity's result lands in the event history.*
 
-### The Dispatch Model
+### The dispatch model
 
 This is how a request is submitted to temporal. 
 1. A client submits by name, then the server stores and queues without validation
@@ -72,7 +72,7 @@ This is how a request is submitted to temporal.
 *Scenario B. A typo in the name loops on WorkflowTaskFailed forever*
 
 ---
-## 2. Setup (60s)
+## 2. Setup (in 60s)
 
 It is worth watching what "durable" physically looks like for a single, boring, successful run.
 
@@ -82,7 +82,7 @@ The whole setup is three small files and two containers, and everything below is
 
 >[!check] We'll be using Pydantic AI with Temporal, because their integration is native and mature by now.  
 
-*You can find all the code files in the github repo: https://github.com/kevin-aoun/blog/tree/main/tech/durable-agents*
+*You can find all the code files in the [github repo](https://github.com/kevin-aoun/blog/tree/main/tech/durable-agents)*
 
 ```bash
 pip install "pydantic-ai[temporal]"
@@ -170,11 +170,11 @@ my worker. Physical proof of the division of labor: the server coordinates and r
 >[!error] Important Note
 >An agent name is normally optional in Pydantic AI, but the Temporal integration requires it, since each activity "needs to have a name that's stable and unique" so that Temporal "knows what code to run when an activity fails or is interrupted and then restarted, even if your code is changed in between". 
 >
->The same goes for toolset IDs, and renaming after deploying "would break active workflows": the history references activities by these names, and a renamed agent no longer matches its own history during replay. Check https://pydantic.dev/docs/ai/integrations/durable_execution/temporal for more details
+>The same goes for toolset IDs, and renaming after deploying "would break active workflows": the history references activities by these names, and a renamed agent no longer matches its own history during replay. Check [https://pydantic.dev/docs/ai/integrations/durable_execution/temporal](https://pydantic.dev/docs/ai/integrations/durable_execution/temporal) for more details
 
 
 ---
-## 4. Now, Kill the Worker
+## 4. Now we kill the worker
 
 Everything above was a happy run. The whole promise of durability is surviving death, so let's cause one.
 
