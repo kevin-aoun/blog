@@ -3,6 +3,14 @@ description: Ideas on philosophy, tech, and whatever else is on my mind.
 baseurl: "/blog"
 url: "https://kevin-aoun.github.io"
 
+# Reading-time estimate. Auto-computed per post in _layouts/note.html as
+#   minutes = ceil( chars / chars_per_min  +  images * image_seconds / 60 )
+# from the rendered post body. Tune these knobs to taste; a single post can
+# override the result with `minutes_read: <n>` in its own front matter.
+reading:
+  chars_per_min: 1000   # ~175 words/min; lower it to raise every estimate
+  image_seconds: 12     # buffer added per image (figures take time to read)
+
 # Minimal, self-contained setup — no remote theme.
 # Layouts live in _layouts/, styles in assets/css/style.scss.
 

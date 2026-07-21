@@ -1,6 +1,17 @@
 ---
 layout: default
 ---
+{%- comment -%} Auto reading-time estimate — knobs live under `reading:` in _config.yml. {%- endcomment -%}
+{%- assign rt_cpm = site.reading.chars_per_min | default: 1000 -%}
+{%- assign rt_img_sec = site.reading.image_seconds | default: 12 -%}
+{%- assign rt_chars = content | strip_html | size -%}
+{%- assign rt_imgs = content | split: '<img' | size | minus: 1 -%}
+{%- assign rt_seconds = rt_chars | times: 60.0 | divided_by: rt_cpm -%}
+{%- assign rt_img_buffer = rt_imgs | times: rt_img_sec -%}
+{%- assign rt_seconds = rt_seconds | plus: rt_img_buffer -%}
+{%- assign read_minutes = rt_seconds | divided_by: 60.0 | ceil -%}
+{%- if read_minutes < 1 -%}{%- assign read_minutes = 1 -%}{%- endif -%}
+{%- if page.minutes_read -%}{%- assign read_minutes = page.minutes_read -%}{%- endif -%}
 <article class="post">
   <nav class="post-toc-rail" aria-label="On this page"></nav>
 
@@ -8,11 +19,14 @@ layout: default
     <header class="note-header">
       <h1 class="note-title">{{ page.title }}</h1>
       {% if page.description %}<p class="note-description">{{ page.description }}</p>{% endif %}
-      {% if page.date or page.author %}
+      {% if page.date or page.author or read_minutes %}
       <p class="note-meta">
         {%- if page.date %}<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>{% endif -%}
         {%- if page.date and page.author %} · {% endif -%}
         {%- if page.author %}{{ page.author }}{% endif -%}
+        {%- if read_minutes -%}
+          {%- if page.date or page.author %} · {% endif -%}{{ read_minutes }} min read
+        {%- endif -%}
       </p>
       {% endif %}
       {% if page.parent or page.legacy %}
