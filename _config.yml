@@ -8,7 +8,7 @@ url: "https://kevin-aoun.github.io"
 # from the rendered post body. Tune these knobs to taste; a single post can
 # override the result with `minutes_read: <n>` in its own front matter.
 reading:
-  chars_per_min: 1000   # ~175 words/min; lower it to raise every estimate
+  chars_per_min: 1300   # ~230 words/min; lower it to raise every estimate
   image_seconds: 12     # buffer added per image (figures take time to read)
 
 # Minimal, self-contained setup — no remote theme.
