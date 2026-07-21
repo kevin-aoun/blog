@@ -484,6 +484,7 @@ div.highlighter-rouge.language-markdown::before     { content: "markdown"; }
 .callout[data-callout="question"],
 .callout[data-callout="help"],
 .callout[data-callout="quote"]     { --callout-color: var(--border-hover); }
+.callout[data-callout="example"]   { --callout-color: #8b5cf6; }
 
 /* Custom types */
 .callout[data-callout="heart"]     { --callout-color: #ff8ff7; }
