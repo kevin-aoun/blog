@@ -30,7 +30,7 @@ I don't let AI write my posts. Sure, I use it to brainstorm ideas and to polish 
 
 <div class="skills-head">
   <p>Reusable Claude Code skills I have built. Each card links to its source, so you can read it or download it.</p>
-  <a class="skills-all" href="https://github.com/kevin-aoun/skills" target="_blank" rel="noopener">All skills on GitHub</a>
+  <a class="skills-all" href="https://github.com/kevin-aoun?tab=repositories" target="_blank" rel="noopener">More on GitHub</a>
 </div>
 
 <div class="skills">
