@@ -9,7 +9,7 @@ I'm an AI engineer with 3 years of hands-on experience, from POCs to cloud deplo
 
 <p class="human-badge"><span class="badge-ic">{% include_relative assets/icons/human-made.svg %}</span> Human made blog</p>
 
-I don't let AI write my posts. Sure, I use it to brainstorm ideas and to polish how I deliver them, but never in full control. It is an assistant, not a replacement for my own judgement and critical thinking.
+I don't let AI write my posts. Sure, I use it to brainstorm ideas and to polish how I deliver them, but never in full control. It is an assistant, not a replacement for my own judgement and critical thinking. And when I do lean on a model to help me write, you will see a disclaimer on that post.
 
 ## My stack
 

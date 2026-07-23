@@ -5,9 +5,11 @@ parent: Tech
 date: 2026-07-21
 author: Kevin Aoun
 description: "A deep dive into how a durable agent run works, using Temporal and Pydantic AI"
-summary: "Durable execution lets an agent run survive worker crashes, deploys, rate limits, and other interruptions without starting from zero. In this post, I break down what a durable agent run actually is, how Temporal records and replays it, and what happens when a worker dies halfway through."
+tldr: "Durable execution lets an agent run survive worker crashes, deploys, rate limits, and other interruptions without starting from zero. In this post, I break down what a durable agent run actually is, how Temporal records and replays it, and what happens when a worker dies halfway through."
 legacy: false
 ---
+
+{% include ai-disclaimer.html model="GPT 5.6 Sol" %}
 
 ## Introduction
 
@@ -291,11 +293,8 @@ If you misspell the task queue instead, the task is never picked up at all.
 - A server-side type registry would be stale by construction (workers boot, die, and deploy continuously), and start-time validation is a TOCTOU trap: passing the check guarantees nothing at execution time
 - Precedents in the same pattern: RabbitMQ does not validate consumers can parse messages; Kafka brokers do not know schemas (Schema Registry is a separate optional component); load balancers do not know whether backends implement routes.
 
-{% include ai-disclaimer.html %}
-
 [^series-d]: Temporal, [Temporal raises $300M Series D at a $5B valuation](https://temporal.io/blog/temporal-raises-usd300m-series-d-at-a-usd5b-valuation) (February 2026).
 [^replit]: Temporal, [Replit uses Temporal to power Replit Agent reliably at scale](https://temporal.io/resources/case-studies/replit-uses-temporal-to-power-replit-agent-reliably-at-scale).
 [^pydantic]: Temporal, [Build durable AI agents with Pydantic AI and Temporal](https://temporal.io/blog/build-durable-ai-agents-pydantic-ai-and-temporal) (November 2025).
 [^openai-sdk]: Temporal, [Announcing the OpenAI Agents SDK integration](https://temporal.io/blog/announcing-openai-agents-sdk-integration) (March 2026).
 [^langgraph]: Temporal, [Temporal LangGraph plugin: durable execution](https://temporal.io/blog/temporal-langgraph-plugin-durable-execution) (July 2026).
-
