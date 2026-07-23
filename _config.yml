@@ -3,6 +3,9 @@ description: Ideas on philosophy, tech, and whatever else is on my mind.
 baseurl: "/blog"
 url: "https://kevin-aoun.github.io"
 
+# Raw source base for the note "Copy as Markdown" button (public repo, main branch).
+repo_raw_base: "https://raw.githubusercontent.com/kevin-aoun/blog/main"
+
 # Reading-time estimate. Auto-computed per post in _layouts/note.html as
 #   minutes = ceil( chars / chars_per_min  +  images * image_seconds / 60 )
 # from the rendered post body. Tune these knobs to taste; a single post can

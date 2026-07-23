@@ -515,6 +515,29 @@ div.highlighter-rouge.language-markdown::before     { content: "markdown"; }
 }
 .ai-disclaimer svg { flex: none; width: 15px; height: 15px; }
 
+/* ── "Copy as Markdown" button (note header) ──────────────── */
+.note-actions { margin-top: 1.2rem; }
+.md-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--elevated);
+  color: var(--muted);
+  font-family: "Geist Mono", monospace;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.md-copy:hover { border-color: var(--border-hover); color: var(--heading); }
+.md-copy .md-copy-mark { flex: none; width: 19px; height: auto; }
+.md-copy.copied {
+  color: var(--cc-green);
+  border-color: color-mix(in srgb, var(--cc-green) 45%, transparent);
+}
+
 /* ── Table of contents ────────────────────────────────────── */
 /* Auto-generated: a script (default.html) builds <ul id="markdown-toc"> from
    each post's h2/h3 on load and drops it in the left rail, so authors never
@@ -684,7 +707,12 @@ th { color: var(--heading); font-weight: 600; }
 
 /* ── Note header ──────────────────────────────────────────── */
 .note-header { margin-bottom: 2.5rem; }
-.note-title { margin-bottom: 0.4rem; }
+.note-date {
+  color: var(--muted);
+  font-size: 0.82rem;              /* same font + size as .note-meta */
+  margin: 0 0 0.6rem;
+}
+.note-title { margin: 0 0 0.4rem; }
 
 .note-description {
   color: var(--muted);

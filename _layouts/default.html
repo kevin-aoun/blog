@@ -190,6 +190,57 @@
   </script>
 
   <script>
+    // "Copy as Markdown": fetch the post's raw .md source from the repo, strip
+    // front matter + Liquid, prepend the title as an H1, and copy it. Handy for
+    // handing a post to an agent. No-op on pages without a .md-copy button.
+    (function () {
+      var btns = document.querySelectorAll('.md-copy');
+      if (!btns.length) return;
+      function copyText(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text);
+        return new Promise(function (resolve, reject) {
+          try {
+            var ta = document.createElement('textarea');
+            ta.value = text; ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed'; ta.style.top = '-9999px';
+            document.body.appendChild(ta); ta.select();
+            var ok = document.execCommand('copy'); document.body.removeChild(ta);
+            ok ? resolve() : reject();
+          } catch (e) { reject(e); }
+        });
+      }
+      function toMarkdown(raw, title) {
+        raw = raw.replace(/^﻿?---\r?\n[\s\S]*?\r?\n---\r?\n/, '');   // drop YAML front matter
+        raw = raw.replace(/\{%[\s\S]*?%\}/g, '');                        // drop Liquid tags (includes)
+        raw = raw.replace(/\n{3,}/g, '\n\n').replace(/^\s+|\s+$/g, '');
+        return (title ? '# ' + title + '\n\n' : '') + raw + '\n';
+      }
+      Array.prototype.forEach.call(btns, function (btn) {
+        var label = btn.querySelector('.md-copy-label');
+        var orig = label ? label.textContent : '';
+        var cache = null, timer;
+        function flash(msg, ok) {
+          if (label) label.textContent = msg;
+          if (ok) btn.classList.add('copied');
+          clearTimeout(timer);
+          timer = setTimeout(function () { btn.classList.remove('copied'); if (label) label.textContent = orig; }, 1600);
+        }
+        btn.addEventListener('click', function () {
+          var src = btn.getAttribute('data-md-src');
+          var title = btn.getAttribute('data-md-title');
+          if (!src) return;
+          var give = function (md) { copyText(md).then(function () { flash('Copied', true); }).catch(function () { flash('Copy failed', false); }); };
+          if (cache != null) { give(cache); return; }
+          if (label) label.textContent = 'Copying…';
+          fetch(src).then(function (r) { if (!r.ok) throw 0; return r.text(); })
+            .then(function (t) { cache = toMarkdown(t, title); give(cache); })
+            .catch(function () { flash('Fetch failed', false); });
+        });
+      });
+    })();
+  </script>
+
+  <script>
     // Obsidian-style callouts: "> [!type] Title" blockquotes become boxed
     // callouts with a Lucide icon. Untagged blockquotes are left untouched.
     (function () {

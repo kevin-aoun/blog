@@ -17,15 +17,14 @@ layout: default
 
   <div class="post-main">
     <header class="note-header">
+      {%- if page.date %}<p class="note-date"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time></p>{% endif -%}
       <h1 class="note-title">{{ page.title }}</h1>
       {% if page.description %}<p class="note-description">{{ page.description }}</p>{% endif %}
-      {% if page.date or page.author or read_minutes %}
+      {% if page.author or read_minutes %}
       <p class="note-meta">
-        {%- if page.date %}<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>{% endif -%}
-        {%- if page.date and page.author %} · {% endif -%}
         {%- if page.author %}{{ page.author }}{% endif -%}
         {%- if read_minutes -%}
-          {%- if page.date or page.author %} · {% endif -%}{{ read_minutes }} min read
+          {%- if page.author %} · {% endif -%}{{ read_minutes }} min read
         {%- endif -%}
       </p>
       {% endif %}
@@ -33,6 +32,17 @@ layout: default
       <div class="note-tags">
         {% if page.parent %}<span class="tag tag--{{ page.parent | downcase }}">{{ page.parent }}</span>{% endif %}
         {% if page.legacy %}<span class="tag tag--legacy">Legacy</span>{% endif %}
+      </div>
+      {% endif %}
+      {% if page.path %}
+      <div class="note-actions">
+        <button class="md-copy" type="button"
+                data-md-src="{{ site.repo_raw_base }}/{{ page.path }}"
+                data-md-title="{{ page.title | escape }}"
+                aria-label="Copy this post as Markdown">
+          <svg class="md-copy-mark" viewBox="0 0 208 128" aria-hidden="true"><rect width="198" height="118" x="5" y="5" ry="10" fill="none" stroke="currentColor" stroke-width="10"/><path fill="currentColor" d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39zm125 0l-30-33h20V30h20v35h20z"/></svg>
+          <span class="md-copy-label">Copy as Markdown</span>
+        </button>
       </div>
       {% endif %}
     </header>
