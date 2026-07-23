@@ -546,6 +546,15 @@
         }
         play();
       }
+      // Web fonts load async: the first cols measure can use a wider fallback
+      // glyph and come out short, leaving the band narrower than its box.
+      // Re-measure once fonts are ready so it fills the full width.
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          for (var k = 0; k < bands.length; k++) bands[k].cols = measureCols(bands[k].el);
+          if (reduce) drawAll(0);
+        });
+      }
       var rz;
       window.addEventListener('resize', function () {
         clearTimeout(rz);
