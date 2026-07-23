@@ -47,12 +47,23 @@ kramdown:
     block:
       line_numbers: true
 
-# Give every page the default layout unless it sets its own.
+# Notes are a collection: each file in _notes/ becomes a rendered note.
+# Each note keeps its historical URL via a `permalink:` in its front matter.
+collections:
+  notes:
+    output: true
+
+# Default layouts: pages get `default`, notes get `note` (front matter can override).
 defaults:
   - scope:
       path: ""
     values:
       layout: default
+  - scope:
+      path: ""
+      type: notes
+    values:
+      layout: note
 
 exclude:
   - README.md

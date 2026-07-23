@@ -66,7 +66,7 @@
         {% for item in site.nav %}
         <a href="{{ item.url | relative_url }}" class="nav-link{% if page.url == item.url %} active{% endif %}">{{ item.title }}</a>
         {% if item.section %}
-          {% assign children = site.pages | where: "parent", item.section | sort: "date" | reverse %}
+          {% assign children = site.notes | where: "parent", item.section | sort: "date" | reverse %}
           {% if children != empty %}
           <div class="nav-children">
             {% for child in children %}
@@ -364,7 +364,7 @@
     // Wikilinks: turn [[Note Title]] / [[Note Title|alias]] in prose into links
     // using a title -> url map built at build time. Unknown targets render as
     // plain (dimmed) text. Skips code, pre, links, and headings.
-    window.WIKILINKS = { {% assign _wl = site.pages | where_exp: "p", "p.date" %}{% for n in _wl %}{% unless forloop.first %},{% endunless %}{{ n.title | jsonify }}: {{ n.url | relative_url | jsonify }}{% endfor %} };
+    window.WIKILINKS = { {% assign _wl = site.notes | where_exp: "p", "p.date" %}{% for n in _wl %}{% unless forloop.first %},{% endunless %}{{ n.title | jsonify }}: {{ n.url | relative_url | jsonify }}{% endfor %} };
     (function () {
       var main = document.querySelector('main');
       if (!main || !/\[\[/.test(main.textContent)) return;

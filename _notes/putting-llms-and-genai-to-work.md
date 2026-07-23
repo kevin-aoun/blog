@@ -1,6 +1,7 @@
 ---
 title: "Putting LLMs and GenAI to Work"
 layout: note
+permalink: /tech/putting-llms-and-genai-to-work.html
 parent: Tech
 date: 2024-02-16
 author: Kevin Aoun

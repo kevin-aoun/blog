@@ -1,6 +1,7 @@
 ---
 title: "Anatomy of a durable agent run using Temporal"
 layout: note
+permalink: /tech/durable-agents/anatomy-of-a-durable-agent-run.html
 parent: Tech
 date: 2026-07-21
 author: Kevin Aoun
