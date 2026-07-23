@@ -22,6 +22,7 @@
   --selection:    rgba(255, 255, 255, 0.16);
   --cc-ship:      #f1c40f;
   --cc-green:     #2ecc71;
+  --cc-summary:   #2dd4bf;
 
   --radius:       0.5rem;
   --content-w:    720px;
@@ -54,6 +55,7 @@
     --selection:    rgba(15, 0, 90, 0.12);
     --cc-ship:      #c2740c;
     --cc-green:     #1f9e57;
+    --cc-summary:   #0d9488;
   }
 }
 :root[data-theme="light"] {
@@ -75,6 +77,7 @@
   --selection:    rgba(15, 0, 90, 0.12);
     --cc-ship:      #c2740c;
     --cc-green:     #1f9e57;
+    --cc-summary:   #0d9488;
 }
 
 /* ── Base ─────────────────────────────────────────────────── */
@@ -498,14 +501,25 @@ div.highlighter-rouge.language-markdown::before     { content: "markdown"; }
 .callout[data-callout="target"]    { --callout-color: #3498db; }
 .callout[data-callout="ship"]      { --callout-color: var(--cc-ship); }
 .callout[data-callout="confetti"]  { --callout-color: #b266ff; }
+.callout[data-callout="summary"]   { --callout-color: var(--cc-summary); }
+
+/* ── AI-assist disclaimer (reusable: {% include ai-disclaimer.html %}) ─ */
+.ai-disclaimer {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 1.75rem 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-style: italic;
+}
+.ai-disclaimer svg { flex: none; width: 15px; height: 15px; color: var(--faint); }
 
 /* ── Table of contents ────────────────────────────────────── */
-/* Opt-in per post — Kramdown replaces the list with <ul id="markdown-toc">:
-     ## Contents
-     {: .no_toc .post-toc-title }
-
-     * TOC
-     {:toc}                                                             */
+/* Auto-generated: a script (default.html) builds <ul id="markdown-toc"> from
+   each post's h2/h3 on load and drops it in the left rail, so authors never
+   hand-maintain a TOC. A legacy inline "* TOC / {:toc}" block is still honored
+   if present. These rules also style that fallback inline TOC. */
 .post-toc-title {
   margin: 2rem 0 0.6rem;
   padding: 0;

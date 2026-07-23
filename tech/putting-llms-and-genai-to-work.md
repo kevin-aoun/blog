@@ -13,12 +13,6 @@ legacy: true
 > [!note] Disclaimer
 > The technologies and companies mentioned in this article are for informational purposes only and do not constitute endorsement or sponsorship. Please perform your own research.
 
-## Contents
-{: .no_toc .post-toc-title }
-
-* TOC
-{:toc}
-
 ## Introduction
 
 LLMs and Generative AI have taken the world by storm, and for good reason. These powerful technologies are transforming how we interact with information, create content, and automate tasks.
