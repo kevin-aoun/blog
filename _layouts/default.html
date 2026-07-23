@@ -190,6 +190,7 @@
   </script>
 
   <script>
+    {% raw %}
     // "Copy as Markdown": fetch the post's raw .md source from the repo, strip
     // front matter + Liquid, prepend the title as an H1, and copy it. Handy for
     // handing a post to an agent. No-op on pages without a .md-copy button.
@@ -238,6 +239,7 @@
         });
       });
     })();
+    {% endraw %}
   </script>
 
   <script>
