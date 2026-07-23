@@ -12,6 +12,7 @@ layout: default
 {%- assign read_minutes = rt_seconds | divided_by: 60.0 | ceil -%}
 {%- if read_minutes < 1 -%}{%- assign read_minutes = 1 -%}{%- endif -%}
 {%- if page.minutes_read -%}{%- assign read_minutes = page.minutes_read -%}{%- endif -%}
+<pre class="wave-band wave-band--top" data-rows="8" aria-hidden="true"></pre>
 <article class="post">
   <nav class="post-toc-rail" aria-label="On this page"></nav>
 
@@ -24,18 +25,16 @@ layout: default
       <p class="note-meta">
         {%- if page.author %}{{ page.author }}{% endif -%}
         {%- if read_minutes -%}
-          {%- if page.author %} · {% endif -%}{{ read_minutes }} min read
+          {%- if page.author %} · {% endif -%}{{ read_minutes }} mins
         {%- endif -%}
       </p>
       {% endif %}
-      {% if page.parent or page.legacy %}
-      <div class="note-tags">
-        {% if page.parent %}<span class="tag tag--{{ page.parent | downcase }}">{{ page.parent }}</span>{% endif %}
-        {% if page.legacy %}<span class="tag tag--legacy">Legacy</span>{% endif %}
-      </div>
-      {% endif %}
-      {% if page.path %}
-      <div class="note-actions">
+      <div class="note-meta-row">
+        <div class="note-tags">
+          {% if page.parent %}<span class="tag tag--{{ page.parent | downcase }}">{{ page.parent }}</span>{% endif %}
+          {% if page.legacy %}<span class="tag tag--legacy">Legacy</span>{% endif %}
+        </div>
+        {% if page.path %}
         <button class="md-copy" type="button"
                 data-md-src="{{ site.repo_raw_base }}/{{ page.path }}"
                 data-md-title="{{ page.title | escape }}"
@@ -43,8 +42,8 @@ layout: default
           <svg class="md-copy-mark" viewBox="0 0 208 128" aria-hidden="true"><rect width="198" height="118" x="5" y="5" ry="10" fill="none" stroke="currentColor" stroke-width="10"/><path fill="currentColor" d="M30 98V30h20l20 25 20-25h20v68H90V59L70 84 50 59v39zm125 0l-30-33h20V30h20v35h20z"/></svg>
           <span class="md-copy-label">Copy as Markdown</span>
         </button>
+        {% endif %}
       </div>
-      {% endif %}
     </header>
 
     <div class="post-body">
@@ -63,3 +62,4 @@ layout: default
 
   <aside class="post-sources" aria-label="Sources"></aside>
 </article>
+<pre class="wave-band wave-band--bottom" data-rows="5" aria-hidden="true"></pre>

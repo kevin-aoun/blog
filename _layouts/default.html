@@ -456,5 +456,106 @@
       });
     })();
   </script>
+
+  <script>
+    {% raw %}
+    // Animated ASCII wave bands: fill each .wave-band (post header/footer) with a
+    // monochrome, domain-warped drifting field (theme ink at varying opacity).
+    // Counter-travelling waves + slow emerging blobs. Pauses off-screen; honors
+    // prefers-reduced-motion. No-op on pages without a .wave-band.
+    (function () {
+      var els = document.querySelectorAll('.wave-band');
+      if (!els.length) return;
+      var RAMP = ' .:-=+*#%@';
+      var OPAC = [0, 0.12, 0.19, 0.27, 0.37, 0.49, 0.62, 0.76, 0.89, 1.0];
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var YS = 2.0;
+      var BLOBS = [
+        { fx: 0.15, fy: 0.42, r: 12, rate: 1.7, ph: 0.0, amp: 1.5 },
+        { fx: 0.44, fy: 0.62, r: 9,  rate: 2.3, ph: 2.2, amp: 1.3 },
+        { fx: 0.63, fy: 0.30, r: 11, rate: 1.4, ph: 4.1, amp: 1.6 },
+        { fx: 0.82, fy: 0.56, r: 10, rate: 2.0, ph: 1.1, amp: 1.4 },
+        { fx: 0.30, fy: 0.26, r: 8,  rate: 2.5, ph: 5.0, amp: 1.2 }
+      ];
+      function height(x, y, t, cols, rows) {
+        var wx = 1.9 * Math.sin(y * 0.090 + t * 0.30) + 1.3 * Math.sin((x * 0.045 + y * 0.070) - t * 0.20);
+        var wy = 1.6 * Math.cos(x * 0.070 - t * 0.24) + 1.0 * Math.sin((x * 0.055 - y * 0.050) + t * 0.16);
+        var xx = x + wx, yy = y + wy;
+        var vb = 1.00 * Math.sin(xx * 0.115 - t * 0.95)
+               + 0.80 * Math.sin(xx * 0.095 + t * 0.82)
+               + 0.55 * Math.sin(yy * 0.150 - t * 0.34)
+               + 0.45 * Math.sin((xx * 0.060 + yy * 0.100) + t * 0.50);
+        var n = (vb / 2.80 + 1) / 2;
+        n = 0.5 + (n - 0.5) * 1.15;
+        for (var b = 0; b < BLOBS.length; b++) {
+          var bl = BLOBS[b];
+          var pulse = Math.sin(t * bl.rate + bl.ph);
+          if (pulse <= 0) continue;
+          var dx = x - bl.fx * cols, dy = (y - bl.fy * rows) * YS;
+          n += 0.45 * bl.amp * pulse * Math.exp(-(dx * dx + dy * dy) / (bl.r * bl.r));
+        }
+        return Math.max(0, Math.min(0.9999, n));
+      }
+      function measureCols(el) {
+        var probe = document.createElement('span');
+        probe.textContent = '0'.repeat(100); probe.style.visibility = 'hidden';
+        el.appendChild(probe);
+        var cw = probe.getBoundingClientRect().width / 100; el.removeChild(probe);
+        return Math.max(24, Math.floor((el.clientWidth || 1000) / (cw || 9.6)));
+      }
+      var bands = [];
+      Array.prototype.forEach.call(els, function (el) {
+        bands.push({ el: el, rows: parseInt(el.getAttribute('data-rows'), 10) || 7, cols: measureCols(el) });
+      });
+      function draw(b, t) {
+        var html = '', i, j;
+        for (j = 0; j < b.rows; j++) {
+          var run = '', ri = -1;
+          for (i = 0; i < b.cols; i++) {
+            var idx = Math.floor(height(i, j, t, b.cols, b.rows) * RAMP.length);
+            if (idx !== ri) {
+              if (run) html += ri > 0 ? '<span style="opacity:' + OPAC[ri] + '">' + run + '</span>' : run;
+              run = RAMP[idx]; ri = idx;
+            } else { run += RAMP[idx]; }
+          }
+          if (run) html += ri > 0 ? '<span style="opacity:' + OPAC[ri] + '">' + run + '</span>' : run;
+          html += '\n';
+        }
+        b.el.innerHTML = html;
+      }
+      var SPEED = 0.00042, FRAME = 1000 / 30, start = null, lastDraw = 0, running = false, visible = true;
+      function drawAll(t) { for (var k = 0; k < bands.length; k++) draw(bands[k], t); }
+      function loop(now) {
+        if (!running) return;
+        if (start == null) start = now;
+        if (now - lastDraw >= FRAME) { lastDraw = now; drawAll((now - start) * SPEED); }
+        requestAnimationFrame(loop);
+      }
+      function play() { if (!running && visible && !reduce) { running = true; requestAnimationFrame(loop); } }
+      function pause() { running = false; }
+      if (reduce) {
+        drawAll(0);
+      } else {
+        if ('IntersectionObserver' in window) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) { e.target.__vis = e.isIntersecting; });
+            visible = bands.some(function (b) { return b.el.__vis; });
+            visible ? play() : pause();
+          });
+          bands.forEach(function (b) { io.observe(b.el); });
+        }
+        play();
+      }
+      var rz;
+      window.addEventListener('resize', function () {
+        clearTimeout(rz);
+        rz = setTimeout(function () {
+          for (var k = 0; k < bands.length; k++) bands[k].cols = measureCols(bands[k].el);
+          if (reduce) drawAll(0);
+        }, 150);
+      });
+    })();
+    {% endraw %}
+  </script>
 </body>
 </html>
