@@ -43,6 +43,7 @@
   </script>
 </head>
 <body class="{% if page.layout == 'note' %}is-post{% endif %}">
+  <pre class="wave-band wave-band--top" data-rows="4" aria-hidden="true"></pre>
   <header class="site-header">
     <div class="site-header-inner">
       <button class="icon-btn" type="button" onclick="toggleSidebar()" aria-label="Toggle sidebar">
@@ -100,6 +101,8 @@
       </footer>
     </div>
   </div>
+
+  <pre class="wave-band wave-band--bottom" data-rows="8" aria-hidden="true"></pre>
 
   <script>
     // Upgrade "->" and "→" in prose to a crisp Lucide arrow (skips code/links).
@@ -347,6 +350,26 @@
         }
         tocRail.appendChild(title);
         tocRail.appendChild(toc);
+
+        // Collapsible: collapsed by default; the reader's choice persists.
+        title.classList.add('toc-toggle');
+        title.setAttribute('role', 'button');
+        title.setAttribute('tabindex', '0');
+        var tocOpen = false;
+        try { tocOpen = localStorage.getItem('toc') === 'open'; } catch (e) {}
+        function setToc(open) {
+          tocRail.classList.toggle('toc-collapsed', !open);
+          title.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+        setToc(tocOpen);
+        title.addEventListener('click', function () {
+          tocOpen = !tocOpen;
+          setToc(tocOpen);
+          try { localStorage.setItem('toc', tocOpen ? 'open' : 'closed'); } catch (e) {}
+        });
+        title.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); title.click(); }
+        });
       }
 
       // 2. Turn Kramdown footnotes into right-rail sidenotes.

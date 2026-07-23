@@ -12,7 +12,6 @@ layout: default
 {%- assign read_minutes = rt_seconds | divided_by: 60.0 | ceil -%}
 {%- if read_minutes < 1 -%}{%- assign read_minutes = 1 -%}{%- endif -%}
 {%- if page.minutes_read -%}{%- assign read_minutes = page.minutes_read -%}{%- endif -%}
-<pre class="wave-band wave-band--top" data-rows="8" aria-hidden="true"></pre>
 <article class="post">
   <nav class="post-toc-rail" aria-label="On this page"></nav>
 
@@ -62,4 +61,3 @@ layout: default
 
   <aside class="post-sources" aria-label="Sources"></aside>
 </article>
-<pre class="wave-band wave-band--bottom" data-rows="5" aria-hidden="true"></pre>

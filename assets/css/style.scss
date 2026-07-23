@@ -559,9 +559,9 @@ div.highlighter-rouge.language-markdown::before     { content: "markdown"; }
 }
 .wave-band:empty { display: none; }
 .wave-band--top {
-  margin-bottom: 1.75rem;
-  -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent);
-  mask-image: linear-gradient(to bottom, #000 50%, transparent);
+  margin-bottom: 0.5rem;
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
 }
 .wave-band--bottom {
   margin-top: 2.5rem;
@@ -634,6 +634,19 @@ body.is-post main { max-width: none; padding-top: 2.75rem; }
   border-radius: var(--radius);
 }
 .post-toc-rail .post-toc-title { margin: 0 0 0.7rem; }
+/* Collapsible TOC: a caret toggle on the title; collapsed hides the list. */
+.post-toc-title.toc-toggle { cursor: pointer; display: flex; align-items: center; gap: 0.45rem; }
+.post-toc-title.toc-toggle::before {
+  content: "";
+  flex: none;
+  width: 0; height: 0;
+  border-left: 4px solid currentColor;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  transition: transform 0.15s ease;
+}
+.post-toc-rail:not(.toc-collapsed) .post-toc-title.toc-toggle::before { transform: rotate(90deg); }
+.post-toc-rail.toc-collapsed #markdown-toc { display: none; }
 .post-toc-rail #markdown-toc {
   margin: 0; padding: 0; background: none; border: 0; list-style: none;
   font-size: inherit;
