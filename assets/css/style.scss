@@ -505,6 +505,7 @@ div.highlighter-rouge.language-markdown::before     { content: "markdown"; }
 .callout[data-callout="ship"]      { --callout-color: var(--cc-ship); }
 .callout[data-callout="confetti"]  { --callout-color: #b266ff; }
 .callout[data-callout="tldr"]      { --callout-color: var(--cc-tldr); }
+.callout[data-callout="grill"]     { --callout-color: #b23b32; }
 
 /* ── AI-assist disclaimer (reusable: {% include ai-disclaimer.html %}) ─ */
 .ai-disclaimer {
