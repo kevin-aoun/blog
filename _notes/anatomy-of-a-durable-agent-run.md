@@ -4,6 +4,7 @@ layout: note
 permalink: /tech/durable-agents/anatomy-of-a-durable-agent-run.html
 parent: Tech
 date: 2026-07-21
+revised: 2026-07-24
 author: Kevin Aoun
 description: "A deep dive into how a durable agent run works, using Temporal and Pydantic AI"
 tldr: "Durable execution lets an agent run survive worker crashes, deploys, rate limits, and other interruptions without starting from zero. In this post, I break down what a durable agent run actually is, how Temporal records and replays it, and what happens when a worker dies halfway through."
@@ -82,6 +83,8 @@ So replay does **not** mean repeating the entire run:
 - but if the activity was interrupted -> then execute it again,
 - otherwise (workflow logic) -> replay deterministically around those results.
 
+One caveat to state up front: this is *at-least-once* execution, not exactly-once. This means that an interrupted activity re-runs from zero, so a tool that already fired a side effect (charged a card, sent a webhook) can repeat it on retry. Anything non-idempotent still needs its own idempotency key or dedup.
+
 
 ![Temporal's split: deterministic workflow coordination on the left, non-deterministic activities (model calls, tool calls, side effects) on the right, with the event history recording and replaying](lab/assets/temporal-activity-vs-workflow.png)
 
@@ -130,7 +133,7 @@ docker run --rm -p 7233:7233 -p 8233:8233 temporalio/temporal:latest server star
 >
 >Add `--db-filename temporal.db` if you want runs to survive restarts.
 
-Next, define one agent with one tool, and make it durable for Temporal:
+Next, define one agent with one tool and give it the Temporal durability capability:
 
 ```python
 agent = Agent(
@@ -155,6 +158,8 @@ class HelloWorkflow(PydanticAIWorkflow):
         result = await agent.run(prompt)
         return result.output
 ```
+
+The durability lives on the agent now, through the `TemporalDurability` capability, so the same `agent` object runs directly inside the workflow. No separate wrapper to keep in sync.
 
 Two more files complete the setup:
 - `worker.py`: the long-running process that executes the workflow and its activities.
@@ -193,6 +198,9 @@ For example, events 1–3 are a Workflow Task being scheduled, started, and comp
 >- **Events 14 to 16:** The loop decides to send the tool result back to the model.
 >- **Events 17 to 19:** The second model request runs, and its final text answer is recorded.
 >- **Events 20 to 23:** The loop decides it is done. Event 23 stores the workflow's final output, queryable by workflow ID until retention expires (72 hours by default after the run closes).
+
+>[!info] The history is also stored data
+>Event history holds the model inputs and outputs and every tool payload, in plaintext, for the whole retention window. If any of that is sensitive, encrypt it with a **Temporal payload codec** before it leaves the worker. Durability is not the same as safe to store.
 
 All in all, the agent made two model calls and one tool call.
 
@@ -259,25 +267,28 @@ The run completes within seconds. Temporal replays the workflow, feeds it the re
 >You would expect to see Attempt 2, not 9. 
 >The reason is my LLM gateway apparently had a bad evening and kept rejecting one request with a 400. 
 >
->Temporal retried until the gateway recovered. That story (and when infinite retries are the *wrong* answer) is for the next post.
+>Temporal retried until the gateway recovered. But a 400 is usually a permanent client error, not a blip, so retrying it forever mostly burns tokens. The honest fix is to cap attempts or mark some error types non-retryable, and save unlimited retries for genuinely transient failures. When infinite retries are the *wrong* answer is a whole post on its own, so more on that next time.
 >
 >![gateway error](lab/assets/gateway-failure.png)
 
 >[!check] The takeaway
 >The run's life is not tied to any process. State lives on the server, code lives on workers, and workers are replaceable mid-run.
 
+>[!info] A caveat on "deploys"
+>Restarting the same worker code is crash recovery. But a re-deploy *changes* the workflow code: replay only holds if the new code makes the same decisions in the same order, so naturally code-changing deploys lean on Temporal's versioning and patching.
+
 
 ---
 
 ## Appendix
 
-**Side note found from breaking things.** Names are matched by string at runtime, and nothing validates them at start time. 
+**Side note I found from breaking things.** Names are matched by string at runtime, and nothing validates them at start time. 
 
 If you submit a workflow with a typo in its type name, the server accepts it, the worker receives it, rejects it as unregistered, and the server retries it forever. 
 
 The run just sits Running, accumulating `WorkflowTaskFailed` events, waiting for a worker that knows the name. This is actually deliberate: during a rolling deploy, "code not registered yet" is a temporary condition, so Temporal waits instead of failing the run. 
 
-It also means a renamed agent is just a typo you made on purpose, and this is what would happen: a wait-forever loop. 
+A renamed agent is the same class of problem one level down: its activities get new names, so a run already in flight no longer lines up with the activity names recorded in its own history. A different failure from the workflow-type typo above, but the same lesson: the name is the contract. 
 
 If you misspell the task queue instead, the task is never picked up at all.
 

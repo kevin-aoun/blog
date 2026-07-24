@@ -17,7 +17,7 @@ layout: default
 
   <div class="post-main">
     <header class="note-header">
-      {%- if page.date %}<p class="note-date"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time></p>{% endif -%}
+      {%- if page.date %}<p class="note-date"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>{% if page.revised %} · <span class="note-revised">revised {{ page.revised | date: "%B %-d, %Y" }}</span>{% endif %}</p>{% endif -%}
       <h1 class="note-title">{{ page.title }}</h1>
       {% if page.description %}<p class="note-description">{{ page.description }}</p>{% endif %}
       {% if page.author or read_minutes %}
