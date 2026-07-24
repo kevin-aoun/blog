@@ -6,7 +6,7 @@
 #   credit_name / credit_url: optional. Renders a "Shared with me by <name>"
 #         line on the card, with <name> linking to credit_url.
 - name: agent-swarm-orchestration
-  desc: Coordinate a multi-agent coding swarm: a planner-owned task tree, isolated workers, neutral conflict reconciliation, and stacked review lenses.
+  desc: "Coordinate a multi-agent coding swarm: a planner-owned task tree, isolated workers, neutral conflict reconciliation, and stacked review lenses."
   url: https://github.com/kevin-aoun/skills/tree/main/agent-swarm-orchestration
 - name: deckify
   desc: Build self-contained HTML slide decks in a reasoning-first workshop style.
