@@ -130,31 +130,29 @@ docker run --rm -p 7233:7233 -p 8233:8233 temporalio/temporal:latest server star
 >
 >Add `--db-filename temporal.db` if you want runs to survive restarts.
 
-Next, define one agent with one tool, then wrap it for Temporal:
+Next, define one agent with one tool, and make it durable for Temporal:
 
 ```python
 agent = Agent(
     "openai:gpt-5.2",
     instructions="You are a concise SRE assistant. Use your tool when asked about servers.",
-    name="hello",  # This must stay stable!
+    name="hello",  # required for durability, and must stay stable: it names the activities
+    capabilities=[TemporalDurability()],
 )
 
-# a dummy tool 
+# a dummy tool
 @agent.tool_plain
 def get_server_status(region: str) -> dict:
     """Return the current status of the demo server in the given region."""
     return {"region": region, "status": "degraded", "open_incidents": 2}
 
-# wrapping our Pydantic agent inside TemporalAgent
-temporal_agent = TemporalAgent(agent)
-
 @workflow.defn
 class HelloWorkflow(PydanticAIWorkflow):
-    __pydantic_ai_agents__ = [temporal_agent]
+    __pydantic_ai_agents__ = [agent]
 
     @workflow.run
     async def run(self, prompt: str) -> str:
-        result = await temporal_agent.run(prompt)
+        result = await agent.run(prompt)
         return result.output
 ```
 
