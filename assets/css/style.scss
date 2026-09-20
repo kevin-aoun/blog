@@ -718,6 +718,18 @@ body.is-post main { max-width: none; padding-top: 2.75rem; }
   .sidenote { position: static; width: auto; margin: 0 0 1rem; }
 }
 
+/* ── Mermaid diagrams ─────────────────────────────────────── */
+.mermaid {
+  margin: 1.5rem 0;
+  padding: 1.2rem;
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  text-align: center;
+}
+.mermaid svg { max-width: 100%; }
+
 /* ── Tables ───────────────────────────────────────────────── */
 table {
   width: 100%;
@@ -796,6 +808,7 @@ th { color: var(--heading); font-weight: 600; }
 .tag--legacy     { --tag: #e0902b; }   /* yellow-orange */
 .tag--philosophy { --tag: #3aa35a; }   /* green */
 .tag--psychology { --tag: #a78bfa; }   /* lavender */
+.tag--essays     { --tag: #ec6f8e; }   /* rose */
 
 .note-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0; }
 .note-tags .tag { margin-left: 0; }

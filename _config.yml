@@ -36,6 +36,9 @@ nav:
   - title: Tech
     url: /tech/
     section: Tech
+  - title: Essays
+    url: /essays/
+    section: Essays
   - title: Graph
     url: /graph/
   - title: About

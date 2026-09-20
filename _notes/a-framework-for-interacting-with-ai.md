@@ -2,7 +2,7 @@
 title: "A Framework for Interacting with AI"
 layout: note
 permalink: /essays/ai/a-framework-for-interacting-with-ai.html
-parent: Tech
+parent: Essays
 date: 2026-09-21
 revised: 2026-09-21
 author: Kevin Aoun
@@ -15,7 +15,7 @@ legacy: false
 
 I recently gave a workshop at inmind.ai about a framework I use to work with AI. The framework I presented was simple: define what you are trying to do, find what is missing, check the work, and most importantly, own the decision.
 
-# The Age of Cheap Information
+## The Age of Cheap Information
 
 AI has made information incredibly cheap.
 
@@ -65,10 +65,11 @@ Making a difficult decision takes effort, a sort of "moral fatigue," if you will
 This applies to technical decisions, but it can also apply to decisions involving people, priorities, and values.
 
 >[!check] This is where I think we need to make a personal decision about what we will and will not delegate to AI.
->
->I can delegate research. I can delegate summarization. I can ask AI to explore alternatives, find missing information, review a document, or point out assumptions that I may have overlooked.
->
->I still need to decide what I believe and what I am willing to take responsibility for.
+
+
+I can delegate research. I can delegate summarization. I can ask AI to explore alternatives, find missing information, review a document, or point out assumptions that I may have overlooked.
+
+I still need to decide what I believe and what I am willing to take responsibility for.
 
 Later, in 2026, Anthropic published _Disempowerment Patterns in Real-World AI Usage_[^anthropic-26] and tried to answer this question:
 
@@ -167,6 +168,7 @@ I keep those decisions in `DECISIONS.md`. For each meaningful decision, I want t
 | 2026-08-24 · Architecture owner | Use prompt chaining for document review     | Fixed stages; each step has clear review criteria | Autonomous agent - unnecessary variability and unclear ownership | Reassess when 30%+ cases need adaptive branching      |
 | 2026-08-24 · HR policy owner    | Ground FAQs only in approved policy sources | Answers must trace to official language           | Open-web synthesis - not authoritative for company policy        | Reassess when a new policy version is approved        |
 | 2026-08-24 · Finance owner      | Require sign-off on variance causes         | Need ledger evidence and owner context            | AI-inferred narrative - totals alone cannot establish causes     | Reassess when driver data reaches agreed completeness |
+
 *sample of the decision log.*
 
 This becomes useful several months later.
