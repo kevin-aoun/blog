@@ -3,6 +3,13 @@ description: Ideas on philosophy, tech, and whatever else is on my mind.
 baseurl: "/blog"
 url: "https://kevin-aoun.github.io"
 
+# Author's local timezone. Without this, front-matter dates like `2026-09-21`
+# parse as UTC midnight, but the GitHub Actions build runs in UTC too — so a
+# post dated "today" written after ~9pm local time (UTC+3) still reads as
+# "tomorrow" on the build server and gets silently hidden by Jekyll's
+# future-post guard until the next build after UTC midnight.
+timezone: Asia/Beirut
+
 # Raw source base for the note "Copy as Markdown" button (public repo, main branch).
 repo_raw_base: "https://raw.githubusercontent.com/kevin-aoun/blog/main"
 

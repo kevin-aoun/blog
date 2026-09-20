@@ -1,7 +1,7 @@
 ---
 title: "A Framework for Interacting with AI"
 layout: note
-permalink: /essays/ai/the-age-of-cheap-information.html
+permalink: /essays/ai/a-framework-for-interacting-with-ai.html
 parent: Tech
 date: 2026-09-21
 revised: 2026-09-21
@@ -54,7 +54,7 @@ This is one reason I am careful about asking AI to review a conclusion that I ha
 
 In 2023, Anthropic's research[^anthropic-23] found that this behavior appeared across several RLHF-trained models, and their analysis suggests that human preference judgments can contribute to it. In some cases, human raters and preference models preferred a convincingly written response that agreed with the user over a response that was more correct.
 
-A theory was that models can exhibit *sycophantic behavior* — fancy word meaning that they can become overly agreeable to a user's stated beliefs or position.
+A theory was that models can exhibit *sycophantic behavior* - fancy word meaning that they can become overly agreeable to a user's stated beliefs or position.
 
 Architecturally, a language model is trained to produce responses that are useful and desirable according to its training signal. During preference optimization, responses that people prefer receive a stronger training signal. Agreement can therefore become part of what the model learns to produce, even when agreement is not the same thing as truth.
 
@@ -162,11 +162,11 @@ Eventually, someone has to choose.
 
 I keep those decisions in `DECISIONS.md`. For each meaningful decision, I want to know when it was made, who made it, what was decided, which alternative was rejected, why it was rejected, and what would cause us to revisit the decision.
 
-|Date + Owner|Decision|Why|Rejected Alternative|Revisit Trigger|
-|---|---|---|---|---|
-|2026-08-24 · Architecture owner|Use prompt chaining for document review|Fixed stages; each step has clear review criteria|Autonomous agent — unnecessary variability and unclear ownership|Reassess when 30%+ cases need adaptive branching|
-|2026-08-24 · HR policy owner|Ground FAQs only in approved policy sources|Answers must trace to official language|Open-web synthesis — not authoritative for company policy|Reassess when a new policy version is approved|
-|2026-08-24 · Finance owner|Require sign-off on variance causes|Need ledger evidence and owner context|AI-inferred narrative — totals alone cannot establish causes|Reassess when driver data reaches agreed completeness|
+| Date + Owner                    | Decision                                    | Why                                               | Rejected Alternative                                             | Revisit Trigger                                       |
+| ------------------------------- | ------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------------------- | ----------------------------------------------------- |
+| 2026-08-24 · Architecture owner | Use prompt chaining for document review     | Fixed stages; each step has clear review criteria | Autonomous agent - unnecessary variability and unclear ownership | Reassess when 30%+ cases need adaptive branching      |
+| 2026-08-24 · HR policy owner    | Ground FAQs only in approved policy sources | Answers must trace to official language           | Open-web synthesis - not authoritative for company policy        | Reassess when a new policy version is approved        |
+| 2026-08-24 · Finance owner      | Require sign-off on variance causes         | Need ledger evidence and owner context            | AI-inferred narrative - totals alone cannot establish causes     | Reassess when driver data reaches agreed completeness |
 *sample of the decision log.*
 
 This becomes useful several months later.
