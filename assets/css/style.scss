@@ -733,7 +733,13 @@ body.is-post main { max-width: none; padding-top: 2.75rem; }
 .mermaid svg { max-width: 100%; }
 
 /* ── Tables ───────────────────────────────────────────────── */
+/* display:block turns the <table> itself into the scrollable box (the
+   browser still generates an anonymous table box around thead/tbody for
+   the grid), so a wide table scrolls in place instead of widening the page. */
 table {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   width: 100%;
   border-collapse: collapse;
   margin: 1.5rem 0;
@@ -747,7 +753,6 @@ th { color: var(--heading); font-weight: 600; }
 .post-list li { margin: 0 0 1.9rem; }
 
 .post-link {
-  font-size: 1.15rem;
   font-weight: 600;
   color: var(--heading);
   text-decoration: none;
