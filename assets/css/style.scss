@@ -278,7 +278,7 @@ h1 {
   font-weight: 460;                /* stays elegant, not heavy, at large sizes */
   /* Fluid instead of a flat size: at 2.7rem the title towered over the 16px
      body copy at every width, and had no mobile step-down at all. */
-  font-size: clamp(1.85rem, 1.5rem + 1.5vw, 2.35rem);
+  font-size: clamp(1.85rem, calc(1.5rem + 1.5vw), 2.35rem);
   line-height: 1.15;
   margin-top: 0;
   letter-spacing: -0.02em;
