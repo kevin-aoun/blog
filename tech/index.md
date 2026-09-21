@@ -7,7 +7,7 @@ permalink: /tech/
 
 Build logs, half-baked architectures, and notes-to-self.
 
-{% assign notes = site.notes | where: "parent", page.title | sort: "date" | reverse %}
+{% assign notes = site.pages | where: "layout", "note" | where: "parent", page.title | sort: "date" | reverse %}
 {% if notes == empty %}
 No notes yet.
 {% else %}

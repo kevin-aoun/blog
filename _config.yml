@@ -60,23 +60,14 @@ kramdown:
     block:
       line_numbers: true
 
-# Notes are a collection: each file in _notes/ becomes a rendered note.
-# Each note keeps its historical URL via a `permalink:` in its front matter.
-collections:
-  notes:
-    output: true
-
-# Default layouts: pages get `default`, notes get `note` (front matter can override).
+# Notes are plain pages (layout: note in their own front matter), living
+# wherever they sit under a section folder — not a separate collection.
+# Each keeps its historical URL via a `permalink:` in its front matter.
 defaults:
   - scope:
       path: ""
     values:
       layout: default
-  - scope:
-      path: ""
-      type: notes
-    values:
-      layout: note
 
 exclude:
   - README.md

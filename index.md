@@ -2,7 +2,7 @@
 title: Home
 ---
 
-{% assign notes = site.notes | where_exp: "p", "p.date" | sort: "date" | reverse %}
+{% assign notes = site.pages | where: "layout", "note" | where_exp: "p", "p.date" | sort: "date" | reverse %}
 {% if notes == empty %}
 No notes yet.
 {% else %}

@@ -19,11 +19,17 @@ blog/
 ├── assets/css/style.scss  # the entire design system (CSS variables + rules)
 ├── index.md               # home — a reverse-chronological list of notes
 ├── about.md               # a top-level page
-├── philosophy/index.md    # a section landing page (lists its notes)
 ├── tech/                  # a section + its notes
 │   ├── index.md
-│   ├── putting-llms-and-genai-to-work.md
-│   └── genai-cash-in-the-code.md
+│   ├── putting-llms-and-genai-to-work.md   # no extras -> just the file
+│   └── durable-agents.md                   # has extras -> sibling folder below
+│       └── durable-agents/                 # same name as the note, holds its extras
+│           ├── lab/                        # runnable code for the post
+│           └── *.png                       # images the post embeds
+├── essays/                # another section, same pattern
+│   ├── index.md
+│   └── ai.md
+│       └── ai/assets/                      # ai.md's images
 ├── Gemfile                # for previewing locally (optional)
 └── README.md              # this file
 ```
@@ -31,6 +37,15 @@ blog/
 There's no JavaScript framework and no build step beyond Jekyll — the sidebar
 toggle is ~15 lines of inline vanilla JS, and the ↗ / sidebar / GitHub glyphs
 are inlined [Lucide](https://lucide.dev) SVGs (no icon library to load).
+
+Notes are plain pages, not a Jekyll collection — a note is just a Markdown
+file with `layout: note` in its front matter, living directly under its
+section folder (`tech/`, `essays/`, …). If a note needs images or runnable
+code, give it a same-named sibling folder next to it (e.g. `durable-agents.md`
++ `durable-agents/`) rather than nesting the note itself inside a folder.
+Image paths in the post body are written relative to the note's own URL
+(e.g. `durable-agents/lab/assets/foo.png`), so that folder name has to match
+the note's permalink, not just its filename.
 
 ---
 

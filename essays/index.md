@@ -7,7 +7,7 @@ permalink: /essays/
 
 Longer, less code-shaped pieces on judgment, AI, and how to think about both.
 
-{% assign notes = site.notes | where: "parent", page.title | sort: "date" | reverse %}
+{% assign notes = site.pages | where: "layout", "note" | where: "parent", page.title | sort: "date" | reverse %}
 {% if notes == empty %}
 No notes yet.
 {% else %}
