@@ -6,7 +6,7 @@ parent: Essays
 date: 2026-09-21
 revised: 2026-09-21
 author: Kevin Aoun
-description: "A practical framework for using AI without delegating judgment, built around WYSIATI, accountability, and three simple files: SPECS.md, TODO.md, and DECISIONS.md."
+description: "A practical framework for using AI without delegating judgment, built around three simple files: SPECS.md, TODO.md, and DECISIONS.md."
 tldr: "AI has made information cheap, but judgment is still expensive. This post explores why we are tempted to delegate difficult decisions to AI and presents a practical workflow for keeping humans accountable for what gets decided."
 legacy: false
 ---
@@ -52,24 +52,23 @@ This is one reason I am careful about asking AI to review a conclusion that I ha
 
 ## Disempowerment and the temptation to delegate
 
-In 2023, Anthropic's research[^anthropic-23] found that this behavior appeared across several RLHF-trained models, and their analysis suggests that human preference judgments can contribute to it. In some cases, human raters and preference models preferred a convincingly written response that agreed with the user over a response that was more correct.
+In 2023, Anthropic's research[^anthropic-23] found that this behavior appeared across several RLHF (Reinforcement Learning with Human Feedback) models, and their analysis suggests that human preference judgments can contribute to it. In some cases, human raters and preference models preferred a convincingly written response that agreed with the user over a response that was more correct.
 
-A theory was that models can exhibit *sycophantic behavior* - fancy word meaning that they can become overly agreeable to a user's stated beliefs or position.
+A theory was that models can exhibit *sycophantic behavior* - fancy word meaning that they can become overly agreeable to a user's stated beliefs or position (the infamous "You're absolutely right").
 
 Architecturally, a language model is trained to produce responses that are useful and desirable according to its training signal. During preference optimization, responses that people prefer receive a stronger training signal. Agreement can therefore become part of what the model learns to produce, even when agreement is not the same thing as truth.
 
 There is also another part of this problem that has less to do with the model and more to do with us, and I think it links nicely to Kahneman's System 1 and System 2.
 
-Making a difficult decision takes effort, a sort of "moral fatigue," if you will. It also means accepting responsibility for an outcome that we cannot predict with certainty. When an AI system can produce a confident answer in a few seconds, there is a natural temptation (System 1) to let it make the difficult parts of the decision for us.
+Making a difficult decision takes effort, a sort of "moral laziness," if you will. It also means accepting responsibility for an outcome that we cannot predict with certainty. So when an AI system can produce a confident answer in a few seconds, there is a natural temptation (System 1) to let it make the difficult parts of the decision for us.
 
 This applies to technical decisions, but it can also apply to decisions involving people, priorities, and values.
 
 >[!check] This is where I think we need to make a personal decision about what we will and will not delegate to AI.
-
-
-I can delegate research. I can delegate summarization. I can ask AI to explore alternatives, find missing information, review a document, or point out assumptions that I may have overlooked.
-
-I still need to decide what I believe and what I am willing to take responsibility for.
+>
+>I can delegate research. I can delegate summarization. I can ask AI to explore alternatives, find missing information, review a document, or point out assumptions that I may have overlooked.
+>
+>I still need to decide what I believe and what I am willing to take responsibility for.
 
 Later, in 2026, Anthropic published _Disempowerment Patterns in Real-World AI Usage_[^anthropic-26] and tried to answer this question:
 
@@ -79,41 +78,29 @@ They define **severe disempowerment** as:
 
 > when an AI's role in shaping a user's beliefs, values, or actions has become so extensive that their autonomous judgment is fundamentally compromised
 
-To measure it, they analyzed approximately **1.5 million Claude conversations** from December 2025, and they looked specifically at three things:
+To measure it, they analyzed approximately 1.5 million Claude conversations from December 2025, and they looked specifically at three things:
 
-1. People's beliefs about reality become less accurate.
-2. Their value judgments drift away from those they hold.
-3. Their actions become misaligned with their values.
+1. people's beliefs about reality become less accurate
+2. their value judgments drift away from those they hold
+3. their actions become misaligned with their values
 
-See [Anthropic's full research on disempowerment patterns](https://www.anthropic.com/research/disempowerment-patterns).
+They found that severe disempowerment was rare, ranging from about 1 in 1,300 conversations (distorted beliefs) to 1 in 6,000 (misaligned actions), but milder versions of all three showed up far more often, in roughly 1 in 50 to 1 in 70 conversations. And the rate has been climbing since late 2024. As they put it, given how many people use Claude, even a low rate adds up to a lot of people affected.
 
-Consider a simple example.
-
-Suppose the model is perfectly non-sycophantic.
-
-You ask:
-
-> "I have three possible bowtie colors. Which should I choose?"
-
-The model gives you an answer.
-
-Then you say:
-
-> "Okay, I'll do exactly that."
-
-There is no obvious sycophancy here. The model did not necessarily agree with you.
-
-**You simply delegated the judgment.**
+Check [Anthropic's full research on disempowerment patterns](https://www.anthropic.com/research/disempowerment-patterns).
 
 ## Your environment matters
 
 Using AI responsibly is partly a personal discipline and partly a property of the environment you work in.
 
-It is difficult to maintain personal accountability in a team where nobody asks you why a decision was made. If an AI-generated implementation works, the team may have little reason to investigate how it was produced or whether the underlying assumptions were sound. Naturally, technical debt accumulates faster than they can keep up.
+It is difficult to maintain personal accountability in a team where nobody asks you why a decision was made. If an AI-generated implementation works, the team may have little reason to investigate how it was produced or whether the underlying assumptions were sound. Over time, technical debt can accumulate faster than the team can keep up with it.
 
-At Gaya, we own projects end to end, but we still hold each other accountable for the decisions we make. If I make an architectural choice, I should be able to defend it. And to state the obvious, nobody accepts "Claude wrote it" as an explanation.
+I recently joined Gaya (insurTech startup), about a month ago. We own projects end to end, but we still hold each other accountable for the decisions we make. If I make an architectural choice, I should be able to defend it. And to state the obvious, nobody accepts "Claude wrote it" as an explanation.
 
 I can use AI extensively because I know that I will still have to explain the result to someone else.
+
+At inmind, where I currently serve as an advisor, we faced a problem that our folders and inboxes were full of technical "reports" and documents, generated by AI with little judgement. I have established a firm rule with my team:
+
+>Any "documents" that are shared will not be read. We can either do a live demo, or include examples and walk us through them in the document while explaining your choices.
 
 >[!check] A good environment makes it harder to hide behind the tool.
 
@@ -121,7 +108,7 @@ I can use AI extensively because I know that I will still have to explain the re
 
 Once I started thinking about the problem this way, I wanted a practical way to keep responsibility explicit while still taking advantage of what AI is good at.
 
-The result is a simple workflow built around three files:
+The result is a simple workflow built around three files (other than `README.md`):
 
 - `SPECS.md`
 - `TODO.md`
@@ -218,7 +205,7 @@ Sometimes the answer is yes. There are plenty of decisions where automation is a
 
 ---
 
-## Sources
+## Further Readings
 
 [^anthropic-23]: Anthropic, [Towards Understanding Sycophancy in Language Models](https://www.anthropic.com/research/towards-understanding-sycophancy-in-language-models), 2023.
 
