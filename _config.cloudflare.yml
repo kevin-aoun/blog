@@ -1,5 +1,0 @@
-# Cloudflare's build layers this over _config.yml (see "Publish it" in README.md): there the blog sits at
-# the root of blog.kevinaoun.dev, with no /blog base. Temporary: once GitHub Pages only redirects to the
-# new domain, these two values move into _config.yml and this file goes.
-url: "https://blog.kevinaoun.dev"
-baseurl: ""

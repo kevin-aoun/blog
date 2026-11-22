@@ -1,4 +1,4 @@
-# Kevin's Notes — a GitHub Pages blog
+# Kevin's Notes
 
 A minimal, self-contained Jekyll site. No remote theme — just a handful of
 layouts and one stylesheet, built to look like the [shadcn/ui](https://ui.shadcn.com)
@@ -6,7 +6,7 @@ docs: a toggleable left sidebar, content centered with wide margins, the Geist
 typeface, a near-black background with silver text, and a single orange accent
 used sparingly.
 
-You write Markdown; GitHub builds and hosts the site for free.
+You write Markdown; Cloudflare builds and hosts the site on every push to `main`.
 
 ## What's in here
 
@@ -93,21 +93,20 @@ and text selection), plus `--border`, `--radius`, and the layout widths.
 Cloudflare Workers builds it from GitHub on every push to `main` and serves it at
 https://blog.kevinaoun.dev (the Worker `blog`, configured in `wrangler.jsonc`):
 
-- Build command: `bundle exec jekyll build --config _config.yml,_config.cloudflare.yml`
-  (Cloudflare runs `bundle install` itself).
+- Build command: `bundle exec jekyll build` (Cloudflare runs `bundle install` itself).
 - Deploy command: `npx wrangler deploy`.
 - Ruby is pinned to 3.3 in `.ruby-version`: the `github-pages` gem (Jekyll 3) breaks on
   Ruby 3.4, which no longer ships `bigdecimal` and `csv` by default.
 
-GitHub Pages still builds `main` at https://kevin-aoun.github.io/blog until it is
-switched to redirecting old links to the new domain.
+GitHub Pages serves only redirects now, from the `gh-pages` branch: every old
+kevin-aoun.github.io/blog page sends readers to the same page here.
 
 ## Preview locally (optional)
 
 ```bash
 bundle install
 bundle exec jekyll serve
-# open http://localhost:4000/blog/
+# open http://localhost:4000/
 ```
 
 The `Gemfile` uses the `github-pages` gem so local builds match production.
