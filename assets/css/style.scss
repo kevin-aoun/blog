@@ -23,7 +23,6 @@
   --cc-ship:      #f1c40f;
   --cc-green:     #2ecc71;
   --cc-tldr:      #2dd4bf;
-  --wave-ink:     #c9ced6;
 
   --radius:       0.5rem;
   --content-w:    720px;
@@ -57,7 +56,6 @@
     --cc-ship:      #c2740c;
     --cc-green:     #1f9e57;
     --cc-tldr:      #0d9488;
-    --wave-ink:     #0f005a;
   }
 }
 :root[data-theme="light"] {
@@ -80,7 +78,6 @@
     --cc-ship:      #c2740c;
     --cc-green:     #1f9e57;
     --cc-tldr:      #0d9488;
-    --wave-ink:     #0f005a;
 }
 
 /* ── Base ─────────────────────────────────────────────────── */
@@ -543,33 +540,6 @@ div.highlighter-rouge.language-markdown::before     { content: "markdown"; }
 .md-copy.copied {
   color: var(--cc-green);
   border-color: color-mix(in srgb, var(--cc-green) 45%, transparent);
-}
-
-/* ── Animated ASCII wave bands (post header + footer) ─────── */
-/* A script (default.html) fills these with a monochrome, drifting wave field
-   built from the theme ink at varying opacity. Empty (no JS) -> hidden. */
-.wave-band {
-  white-space: pre;
-  overflow: hidden;
-  margin: 0;
-  color: var(--wave-ink);
-  font-family: "Geist Mono", monospace;
-  font-size: 16px;
-  line-height: 1.15;
-  user-select: none;
-  -webkit-user-select: none;
-  pointer-events: none;
-}
-.wave-band:empty { display: none; }
-.wave-band--top {
-  margin-bottom: 0.5rem;
-  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
-  mask-image: linear-gradient(to bottom, #000 55%, transparent);
-}
-.wave-band--bottom {
-  margin-top: 2.5rem;
-  -webkit-mask-image: linear-gradient(to top, #000 50%, transparent);
-  mask-image: linear-gradient(to top, #000 50%, transparent);
 }
 
 /* ── Table of contents ────────────────────────────────────── */
