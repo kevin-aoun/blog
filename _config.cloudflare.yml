@@ -1,0 +1,6 @@
+# Cloudflare Pages build (blog.kevinaoun.dev): layered over _config.yml with
+#   bundle exec jekyll build --config _config.yml,_config.cloudflare.yml
+# The site sits at the root of its own subdomain there, so it has no /blog base.
+# GitHub Pages reads only _config.yml, so the github.io build is unaffected.
+url: "https://blog.kevinaoun.dev"
+baseurl: ""
