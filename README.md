@@ -90,14 +90,17 @@ and text selection), plus `--border`, `--radius`, and the layout widths.
 
 ## Publish it
 
-1. Push this repo to GitHub.
-   - Site at `https://USERNAME.github.io/blog` → repo named `blog`, keep
-     `baseurl: "/blog"` in `_config.yml`.
-   - Site at `https://USERNAME.github.io` → repo named `USERNAME.github.io`,
-     set `baseurl: ""`.
-2. **Settings → Pages → Build and deployment → Source: Deploy from a branch**,
-   pick `main` / `/ (root)`, save.
-3. Wait ~1 minute. No Actions to configure.
+Cloudflare Workers builds it from GitHub on every push to `main` and serves it at
+https://blog.kevinaoun.dev (the Worker `blog`, configured in `wrangler.jsonc`):
+
+- Build command: `bundle exec jekyll build --config _config.yml,_config.cloudflare.yml`
+  (Cloudflare runs `bundle install` itself).
+- Deploy command: `npx wrangler deploy`.
+- Ruby is pinned to 3.3 in `.ruby-version`: the `github-pages` gem (Jekyll 3) breaks on
+  Ruby 3.4, which no longer ships `bigdecimal` and `csv` by default.
+
+GitHub Pages still builds `main` at https://kevin-aoun.github.io/blog until it is
+switched to redirecting old links to the new domain.
 
 ## Preview locally (optional)
 
