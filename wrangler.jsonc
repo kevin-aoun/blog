@@ -1,0 +1,10 @@
+// Cloudflare Workers (blog.kevinaoun.dev): static files only, from Jekyll's build. Build command:
+//   bundle install && bundle exec jekyll build --config _config.yml,_config.cloudflare.yml
+// The name must match the Worker's name in the Cloudflare dashboard.
+// Ruby is pinned in .ruby-version: the github-pages gem (Jekyll 3) breaks on Ruby 3.4, which dropped
+// bigdecimal and csv from its default gems.
+{
+  "name": "blog",
+  "compatibility_date": "2026-11-01",
+  "assets": { "directory": "./_site" }
+}

@@ -78,3 +78,4 @@ exclude:
   - package.json
   - package-lock.json
   - preview.html
+  - wrangler.jsonc
